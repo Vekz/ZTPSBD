@@ -1,0 +1,78 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using ZTPSBD.Data;
+
+namespace ZTPSBD.Pages.CRUD.Customers
+{
+    public class EditModel : PageModel
+    {
+        private readonly ZTPSBD.Data.ZTPSBDContext _context;
+
+        public EditModel(ZTPSBD.Data.ZTPSBDContext context)
+        {
+            _context = context;
+        }
+
+        [BindProperty]
+        public Customer Customer { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Customer = await _context.Customer
+                .Include(c => c.user).FirstOrDefaultAsync(m => m.id_customer == id);
+
+            if (Customer == null)
+            {
+                return NotFound();
+            }
+           ViewData["User_id_user"] = new SelectList(_context.User, "id_user", "login");
+            return Page();
+        }
+
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://aka.ms/RazorPagesCRUD.
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            _context.Attach(Customer).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CustomerExists(Customer.id_customer))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("./Index");
+        }
+
+        private bool CustomerExists(int id)
+        {
+            return _context.Customer.Any(e => e.id_customer == id);
+        }
+    }
+}

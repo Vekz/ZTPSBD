@@ -1,0 +1,42 @@
+﻿@page
+@model ZTPSBD.Pages.CRUD.Delivery_Services.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Delivery_Service[0].delivery_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Delivery_Service[0].order)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Delivery_Service) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.delivery_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.order.id_order)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.id_deliverman">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.id_deliverman">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.id_deliverman">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

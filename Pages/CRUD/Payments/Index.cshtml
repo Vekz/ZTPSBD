@@ -1,0 +1,54 @@
+﻿@page
+@model ZTPSBD.Pages.CRUD.Payments.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment[0].paid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment[0].method)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment[0].due_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment[0].order)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Payment) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.paid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.method)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.due_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.order.id_order)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.id_payment">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.id_payment">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.id_payment">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

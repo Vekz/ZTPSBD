@@ -1,0 +1,50 @@
+﻿@page
+@model ZTPSBD.Pages.CRUD.Adresses.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Adress</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Adress.id_adress" />
+            <div class="form-group">
+                <label asp-for="Adress.street" class="control-label"></label>
+                <input asp-for="Adress.street" class="form-control" />
+                <span asp-validation-for="Adress.street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adress.city" class="control-label"></label>
+                <input asp-for="Adress.city" class="form-control" />
+                <span asp-validation-for="Adress.city" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adress.street_no" class="control-label"></label>
+                <input asp-for="Adress.street_no" class="form-control" />
+                <span asp-validation-for="Adress.street_no" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adress.Customer_Id_customer" class="control-label"></label>
+                <select asp-for="Adress.Customer_Id_customer" class="form-control" asp-items="ViewBag.Customer_Id_customer"></select>
+                <span asp-validation-for="Adress.Customer_Id_customer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

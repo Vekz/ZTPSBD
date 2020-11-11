@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using ZTPSBD.Data;
 
 namespace ZTPSBD
 {
@@ -24,6 +26,8 @@ namespace ZTPSBD
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddDbContext<ZTPSBDContext>(options =>
+        options.UseSqlServer(Configuration.GetConnectionString("MagazynContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

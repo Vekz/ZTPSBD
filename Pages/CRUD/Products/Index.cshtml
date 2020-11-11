@@ -1,0 +1,60 @@
+﻿@page
+@model ZTPSBD.Pages.CRUD.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].expiration_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].mass)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].product_Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Product) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.expiration_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.product_Category.id_category)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.id_product">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.id_product">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.id_product">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
