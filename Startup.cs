@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using ZTPSBD.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace ZTPSBD
 {
@@ -28,6 +29,26 @@ namespace ZTPSBD
             services.AddRazorPages();
             services.AddDbContext<ZTPSBDContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("MagazynContext")));
+
+            services.AddAuthentication("CookieAuthentication")
+             .AddCookie("CookieAuthentication", config =>
+             {
+                 config.Cookie.HttpOnly = true;
+                 config.Cookie.SecurePolicy = CookieSecurePolicy.None;
+                 config.Cookie.Name = "UserLoginCookie";
+                 config.LoginPath = "/Login/UserLogin";
+                 config.Cookie.SameSite = SameSiteMode.Strict;
+             });
+            services.AddRazorPages(options => {
+                options.Conventions.AuthorizeFolder("/CRUD");
+            });
+
+
+            services.AddRazorPages();
+            services.AddSession();
+            services.AddMvc();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +69,7 @@ namespace ZTPSBD
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
