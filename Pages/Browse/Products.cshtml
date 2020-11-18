@@ -2,13 +2,13 @@
 @model ZTPSBD.Pages.CRUD.Products.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Produkty";
 }
 
-<h1>Index</h1>
+<h1>Produkty</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="/Crud/Products/Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -47,12 +47,12 @@
                 @Html.DisplayFor(modelItem => item.mass)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.product_Category.id_category)
+                @Html.DisplayFor(modelItem => item.product_Category.name)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.id_product">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.id_product">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.id_product">Delete</a>
+                <a asp-page="/CRUD/Products/Edit" asp-route-id="@item.id_product">Edit</a> |
+                <a asp-page="/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a> |
+                <a asp-page="/CRUD/Products/Delete" asp-route-id="@item.id_product">Delete</a>
             </td>
         </tr>
 }

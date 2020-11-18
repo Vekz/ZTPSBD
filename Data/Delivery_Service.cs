@@ -10,10 +10,13 @@ namespace ZTPSBD.Data
     {
 
         [Key]
+        [Display(Name = "ID Dostawcy")]
         public int id_deliverman { get; set; }
 
+        [Display(Name = "Data Dostawy")]
+        [Required]
         public DateTime delivery_date { get; set; }
-
+        [Required]
         public int Order_id_order { get; set; }
 
         public Order order { get; set; }

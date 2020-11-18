@@ -10,14 +10,24 @@ namespace ZTPSBD.Data
     public class Customer
     {
         [Key]
+        [Display(Name = "ID_Klienta")]
         public int id_customer { get; set; }
-
-        public string name { get; set; }
+      
         
+        [Display(Name = "Imię")]
+        [Required]
+        public string name { get; set; }
+
+        [Display(Name = "Nazwisko")]
+        [Required]
         public string surname { get; set; }
+
+        [Display(Name = "Numer VAT")]
 
         public string vat_number { get; set; }
 
+        [Display(Name = "ID_konta")]
+        [Required]
         public int User_id_user { get; set; }
 
 

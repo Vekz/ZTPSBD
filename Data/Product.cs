@@ -22,11 +22,18 @@ namespace ZTPSBD.Data
         [Required]
         public float price { get; set; }
 
+        [Display(Name = "Data Przydatności")]
         public int expiration_date { get; set; }
 
+        [Display(Name = "Waga (w KG)")]
+        [Required]
         public float mass { get; set; }
 
+        [Display(Name = "Kategoria")]
+        [Required]
         public  int id_category {get; set;}
+
+
         public Product_Category product_Category { get; set;}
         public ICollection<Product_Order> Product_Orders { get; set; }
       

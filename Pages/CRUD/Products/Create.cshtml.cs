@@ -20,7 +20,7 @@ namespace ZTPSBD.Pages.CRUD.Products
 
         public IActionResult OnGet()
         {
-        ViewData["id_category"] = new SelectList(_context.ProductCategory, "id_category", "id_category");
+        ViewData["id_category"] = new SelectList(_context.ProductCategory, "id_category", "name");
             return Page();
         }
 
@@ -39,7 +39,7 @@ namespace ZTPSBD.Pages.CRUD.Products
             _context.Product.Add(Product);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Browse/Products");
         }
     }
 }
