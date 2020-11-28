@@ -30,7 +30,7 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
+                            <li class="nav-item" .align-self-end>
                                 <a class="nav-link text-dark" asp-page="/Login/UserLogout"> Logout</a>
                             </li>
                         }
@@ -76,10 +76,10 @@
                     <div class="nav-item .align-self-end">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="~/User/Cart"><span class="glyphicon glyphicon-shopping-cart"></span>Koszyk</a>
+                                <a class="nav-link text-dark" href="/User/Cart"><span class="glyphicon glyphicon-shopping-cart"></span>Koszyk</a>
                             </li>
                             <li>
-                                <a class="nav-link text-dark" asp-area="" asp-page="~/Login/UserLogin"><span class="glyphicon glyphicon-user"></span>Login</a>
+                                <a class="nav-link text-dark" href="/Login/UserLogin"><span class="glyphicon glyphicon-user"></span>Login</a>
                             </li>
                         </ul>
                     </div>

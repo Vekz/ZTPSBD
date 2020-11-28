@@ -61,7 +61,13 @@
                     <a asp-page="Seller/CRUD/Products/Delete" asp-route-id="@item.id_product">Delete</a>
                 </td>
             }
-            </tr>
+            else
+            {
+                <td>
+                    <a asp-page="Seller/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a>
+                </td>
+            }
+        </tr>
 }
     </tbody>
 </table>
