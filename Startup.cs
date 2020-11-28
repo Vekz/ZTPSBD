@@ -30,6 +30,12 @@ namespace ZTPSBD
             services.AddDbContext<ZTPSBDContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MagazynContext")));
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireClaim("IamAdmin"));
+                options.AddPolicy("UserSuffice", policy => policy.RequireClaim("IamUser"));
+            });
+
             services.AddAuthentication("CookieAuthentication")
              .AddCookie("CookieAuthentication", config =>
              {
@@ -40,7 +46,8 @@ namespace ZTPSBD
                  config.Cookie.SameSite = SameSiteMode.Strict;
              });
             services.AddRazorPages(options => {
-                options.Conventions.AuthorizeFolder("/CRUD");
+                options.Conventions.AuthorizeFolder("/CRUD", "AdminOnly");
+                options.Conventions.AuthorizeFolder("/Browse", "UserSuffice");
             });
 
 
