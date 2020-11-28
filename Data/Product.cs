@@ -19,8 +19,9 @@ namespace ZTPSBD.Data
         public string name { get; set; }
 
         [Display(Name = "Price")]
-        [Required]
-        public float price { get; set; }
+        [Range(1, 100), DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal price { get; set; }
 
         [Display(Name = "How long till expiration")]
         public int expiration_date { get; set; }

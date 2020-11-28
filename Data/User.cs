@@ -26,8 +26,5 @@ namespace ZTPSBD.Data
 
         public Customer customer { get; set; }
 
-
-
-
     }
 }

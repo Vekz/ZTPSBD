@@ -28,7 +28,7 @@ namespace ZTPSBD
         {
             services.AddRazorPages();
             services.AddDbContext<ZTPSBDContext>(options =>
-        options.UseSqlServer(Configuration.GetConnectionString("MagazynContext")));
+            options.UseSqlServer(Configuration.GetConnectionString("MagazynContext")));
 
             services.AddAuthentication("CookieAuthentication")
              .AddCookie("CookieAuthentication", config =>
@@ -54,6 +54,9 @@ namespace ZTPSBD
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseRequestLocalization("en-US");
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
