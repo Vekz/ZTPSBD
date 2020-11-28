@@ -19,12 +19,12 @@ namespace ZTPSBD.Pages.Login
         private readonly IConfiguration _configuration;
         public string Message { get; set; }
         [BindProperty]
-        public User user { get; set; }
+        public ZTPSBD.Data.User user { get; set; }
         public UserLoginModel(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-        private bool ValidateUser(User user)
+        private bool ValidateUser(ZTPSBD.Data.User user)
         {
             string Password = String.Empty;
             string Type = String.Empty;
@@ -74,8 +74,11 @@ namespace ZTPSBD.Pages.Login
 
                 var claimsIdentity = new ClaimsIdentity(claims, "CookieAuthentication");
                 await HttpContext.SignInAsync("CookieAuthentication", new  ClaimsPrincipal(claimsIdentity));
-         
-                return LocalRedirect(returnUrl);
+
+                if (Url.IsLocalUrl(returnUrl))
+                    return Redirect(returnUrl);
+                else
+                    return Redirect("/Index");
             }
             return Page();
         }

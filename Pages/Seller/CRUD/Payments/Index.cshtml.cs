@@ -22,8 +22,7 @@ namespace ZTPSBD.Pages.CRUD.Payments
 
         public async Task OnGetAsync()
         {
-            Payment = await _context.Payment
-                .Include(p => p.order).ToListAsync();
+            Payment = await _context.Payment.Include(p => p.order).ToListAsync();
         }
     }
 }

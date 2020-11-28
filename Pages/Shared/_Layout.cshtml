@@ -1,8 +1,4 @@
 ﻿<!DOCTYPE html>
-
-
-
-
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -28,14 +24,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Browse/Products">Products</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Browse/BrowseCartcshtml">View Your Cart</a>
+                        </li>
+
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item" .align-self-end>
-                                <a class="nav-link text-dark" asp-page="/Login/UserLogout"> Logout</a>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Login/UserLogout">Logout</a>
                             </li>
                         }
                     </ul>
                 </div>
+
                 @if (User.Identity.IsAuthenticated)
                 {
                     <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -54,7 +56,7 @@
                                         @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
                                         {
                                             <a class="dropdown-item" href="~/Seller/CRUD/Product_Categories">Categories</a>
-                                            <a class="dropdown-item" href="~/Seller/CRUD/Payments">Payments</a>
+                                            <a class="dropdown-item" href="~/Seller/CRUD/Payments">Manage payments</a>
                                             @if (User.HasClaim("UserType", "Admin"))
                                             {
                                                 <a class="dropdown-item" href="~/Admin/CRUD/Adresses">Adresses</a>
@@ -76,10 +78,10 @@
                     <div class="nav-item .align-self-end">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/User/Cart"><span class="glyphicon glyphicon-shopping-cart"></span>Koszyk</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/User/Cart"><span class="glyphicon glyphicon-shopping-cart"></span>Koszyk</a>
                             </li>
                             <li>
-                                <a class="nav-link text-dark" href="/Login/UserLogin"><span class="glyphicon glyphicon-user"></span>Login</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Login/UserLogin"><span class="glyphicon glyphicon-user"></span>Login</a>
                             </li>
                         </ul>
                     </div>

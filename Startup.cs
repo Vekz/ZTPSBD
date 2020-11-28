@@ -79,10 +79,12 @@ namespace ZTPSBD
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
+            //DO NOT TOUCH THE ORDER FOR THE LOVE OF EVERYTHING THATS SANE
             app.UseAuthentication();
             app.UseAuthorization();
+            ///
 
             app.UseEndpoints(endpoints =>
             {
