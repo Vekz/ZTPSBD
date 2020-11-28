@@ -8,7 +8,7 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="/Admin/CRUD/Orders/Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -38,9 +38,9 @@
                 @Html.DisplayFor(modelItem => item.Delivery_Service_id_deliveryman)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.id_order">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.id_order">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.id_order">Delete</a>
+                <a asp-page="/Seller/CRUD/Orders/Edit" asp-route-id="@item.id_order">Edit</a> |
+                <a asp-page="/Admin/CRUD/Orders/Delete" asp-route-id="@item.id_order">Delete</a>
             </td>
         </tr>
 }

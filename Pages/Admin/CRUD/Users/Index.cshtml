@@ -22,6 +22,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.User[0].email_address)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].User_Type)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -36,6 +39,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.email_address)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.User[0].User_Type)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.id_user">Edit</a> |

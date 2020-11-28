@@ -62,19 +62,15 @@ namespace ZTPSBD.Pages.Login
         }
 
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = "/")
         {
 
             if (ValidateUser(user))
             {
 
-                var claims = new List<Claim>()
-                {
-                new Claim("IamUser", user.login)
-                };
+                var claims = new List<Claim>();
 
-                if (user.User_Type.Equals("TYPE_OF_ADMIN"))
-                    claims.Add(new Claim("IamAdmin", user.login));
+                claims.Add(new Claim("UserType", user.User_Type));
 
                 var claimsIdentity = new ClaimsIdentity(claims, "CookieAuthentication");
                 await HttpContext.SignInAsync("CookieAuthentication", new  ClaimsPrincipal(claimsIdentity));
