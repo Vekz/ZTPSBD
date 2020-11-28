@@ -10,7 +10,7 @@
 @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
 {
     <p>
-        <a asp-page="Seller/Crud/Products/Create">Create New</a>
+        <a asp-page="/Seller/Crud/Products/Create">Create New</a>
     </p>
 }
 <table class="table">

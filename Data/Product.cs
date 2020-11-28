@@ -19,7 +19,7 @@ namespace ZTPSBD.Data
         public string name { get; set; }
 
         [Display(Name = "Price")]
-        [Range(1, 100), DataType(DataType.Currency)]
+        [Range(1, double.MaxValue), DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
         public decimal price { get; set; }
 
