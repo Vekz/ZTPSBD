@@ -26,38 +26,54 @@
                         </li>
                     </ul>
                 </div>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                MENU
-                            </a>
-                            @if (User.Identity.IsAuthenticated())
-                            {
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown">
+
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    MENU
+                                </a>
+
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                @if(User.HasClaim("UserType", "User") || User.HasClaim("UserType", "Seller"), || User.HasClaim("UserType", "Admin"))
-                                {
-                                    <a class="dropdown-item"  href="~/User/CRUD/Orders">Orders</a>
-                                    if(User.HasClaim("UserType", "Seller"), || User.HasClaim("UserType", "Admin"))
+                                    @if (User.HasClaim("UserType", "User") || User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
                                     {
-                                        <a class="dropdown-item"  href="~/Seller/CRUD/Product_Categories">Categories</a>
-                                        <a class="dropdown-item"  href="~/Seller/CRUD/Payments">Payments</a>
-                                        if (User.HasClaim("UserType", "Admin"))
+                                        <a class="dropdown-item" href="~/User/CRUD/Orders">Orders</a>
+                                        <a class="dropdown-item" href="~/User/Cart">Koszyk</a>
+                                        @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
                                         {
-                                            <a class="dropdown-item"  href="~/Admin/CRUD/Adresses">Adresses</a>
-                                            <a class="dropdown-item"  href="~/Admin/CRUD/Customer_Order(s)">Customer_Orders</a>
-                                            <a class="dropdown-item"  href="~/Admin/CRUD/Customers">Customers</a>
-                                            <a class="dropdown-item"  href="~/Admin/CRUD/Delivery_Services">Delivery_Services</a>
-                                            <a class="dropdown-item"  href="~/Admin/CRUD/Product_Order(s)">Product_Order</a>
-                                            <a class="dropdown-item"  href="~/Admin/CRUD/Users">Users</a>
+                                            <a class="dropdown-item" href="~/Seller/CRUD/Product_Categories">Categories</a>
+                                            <a class="dropdown-item" href="~/Seller/CRUD/Payments">Payments</a>
+                                            @if (User.HasClaim("UserType", "Admin"))
+                                            {
+                                                <a class="dropdown-item" href="~/Admin/CRUD/Adresses">Adresses</a>
+                                                <a class="dropdown-item" href="~/Admin/CRUD/Customer_Order(s)">Customer_Orders</a>
+                                                <a class="dropdown-item" href="~/Admin/CRUD/Customers">Customers</a>
+                                                <a class="dropdown-item" href="~/Admin/CRUD/Delivery_Services">Delivery_Services</a>
+                                                <a class="dropdown-item" href="~/Admin/CRUD/Product_Order(s)">Product_Order</a>
+                                                <a class="dropdown-item" href="~/Admin/CRUD/Users">Users</a>
+                                            }
                                         }
                                     }
-                                }
                                 </div>
-                            }
-                        </li>
-                    </ul>
-                </div>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="nav-item .align-self-end">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="~/User/Cart"><span class="glyphicon glyphicon-shopping-cart"></span>Koszyk</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-page="~/Login/UserLogin"><span class="glyphicon glyphicon-user"></span>Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
             </div>
         </nav>
     </header>

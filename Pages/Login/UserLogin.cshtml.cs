@@ -62,7 +62,7 @@ namespace ZTPSBD.Pages.Login
         }
 
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = "/")
         {
 
             if (ValidateUser(user))
