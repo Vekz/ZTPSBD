@@ -19,6 +19,8 @@ namespace ZTPSBD.Data
         [Display(Name = "Login")]
         public string login { get; set; }
 
+        public string User_Type { get; set; }
+
         [EmailAddress]
         [Required]
         [Display(Name = "Address e-mail")]
