@@ -1,4 +1,8 @@
 ﻿<!DOCTYPE html>
+
+
+
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,6 +28,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Browse/Products">Products</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Login/UserLogout"> Logout</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -33,15 +43,15 @@
                                 Login Locked CRUD
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item"  href="~/CRUD/Adresses">Adresses</a>
-                                <a class="dropdown-item"  href="~/CRUD/Customer_Order(s)">Customer_Orders</a>
-                                <a class="dropdown-item"  href="~/CRUD/Customers">Customers</a>
-                                <a class="dropdown-item"  href="~/CRUD/Delivery_Services">Delivery_Services</a>
-                                <a class="dropdown-item"  href="~/CRUD/Orders">Orders</a>
-                                <a class="dropdown-item"  href="~/CRUD/Payments">Payments</a>
-                                <a class="dropdown-item"  href="~/CRUD/Product_Categories">Product_Categories</a>
-                                <a class="dropdown-item"  href="~/CRUD/Product_Order(s)">Product_Order</a>
-                                <a class="dropdown-item"  href="~/CRUD/Users">Users</a>
+                                <a class="dropdown-item" href="~/CRUD/Adresses">Adresses</a>
+                                <a class="dropdown-item" href="~/CRUD/Customer_Order(s)">Customer_Orders</a>
+                                <a class="dropdown-item" href="~/CRUD/Customers">Customers</a>
+                                <a class="dropdown-item" href="~/CRUD/Delivery_Services">Delivery_Services</a>
+                                <a class="dropdown-item" href="~/CRUD/Orders">Orders</a>
+                                <a class="dropdown-item" href="~/CRUD/Payments">Payments</a>
+                                <a class="dropdown-item" href="~/CRUD/Product_Categories">Product_Categories</a>
+                                <a class="dropdown-item" href="~/CRUD/Product_Order(s)">Product_Order</a>
+                                <a class="dropdown-item" href="~/CRUD/Users">Users</a>
                             </div>
                         </li>
                     </ul>
