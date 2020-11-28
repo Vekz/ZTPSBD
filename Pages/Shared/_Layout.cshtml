@@ -30,19 +30,31 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Login Locked CRUD
+                                MENU
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item"  href="~/CRUD/Adresses">Adresses</a>
-                                <a class="dropdown-item"  href="~/CRUD/Customer_Order(s)">Customer_Orders</a>
-                                <a class="dropdown-item"  href="~/CRUD/Customers">Customers</a>
-                                <a class="dropdown-item"  href="~/CRUD/Delivery_Services">Delivery_Services</a>
-                                <a class="dropdown-item"  href="~/CRUD/Orders">Orders</a>
-                                <a class="dropdown-item"  href="~/CRUD/Payments">Payments</a>
-                                <a class="dropdown-item"  href="~/CRUD/Product_Categories">Product_Categories</a>
-                                <a class="dropdown-item"  href="~/CRUD/Product_Order(s)">Product_Order</a>
-                                <a class="dropdown-item"  href="~/CRUD/Users">Users</a>
-                            </div>
+                            @if (User.Identity.IsAuthenticated())
+                            {
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                @if(User.HasClaim("UserType", "User") || User.HasClaim("UserType", "Seller"), || User.HasClaim("UserType", "Admin"))
+                                {
+                                    <a class="dropdown-item"  href="~/User/CRUD/Orders">Orders</a>
+                                    if(User.HasClaim("UserType", "Seller"), || User.HasClaim("UserType", "Admin"))
+                                    {
+                                        <a class="dropdown-item"  href="~/Seller/CRUD/Product_Categories">Categories</a>
+                                        <a class="dropdown-item"  href="~/Seller/CRUD/Payments">Payments</a>
+                                        if (User.HasClaim("UserType", "Admin"))
+                                        {
+                                            <a class="dropdown-item"  href="~/Admin/CRUD/Adresses">Adresses</a>
+                                            <a class="dropdown-item"  href="~/Admin/CRUD/Customer_Order(s)">Customer_Orders</a>
+                                            <a class="dropdown-item"  href="~/Admin/CRUD/Customers">Customers</a>
+                                            <a class="dropdown-item"  href="~/Admin/CRUD/Delivery_Services">Delivery_Services</a>
+                                            <a class="dropdown-item"  href="~/Admin/CRUD/Product_Order(s)">Product_Order</a>
+                                            <a class="dropdown-item"  href="~/Admin/CRUD/Users">Users</a>
+                                        }
+                                    }
+                                }
+                                </div>
+                            }
                         </li>
                     </ul>
                 </div>

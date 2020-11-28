@@ -7,9 +7,12 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-page="/Crud/Products/Create">Create New</a>
-</p>
+@if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
+{
+    <p>
+        <a asp-page="Seller/Crud/Products/Create">Create New</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -49,12 +52,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.product_Category.name)
             </td>
-            <td>
-                <a asp-page="/CRUD/Products/Edit" asp-route-id="@item.id_product">Edit</a> |
-                <a asp-page="/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a> |
-                <a asp-page="/CRUD/Products/Delete" asp-route-id="@item.id_product">Delete</a>
-            </td>
-        </tr>
+
+            @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
+            {
+                <td>
+                    <a asp-page="Seller/CRUD/Products/Edit" asp-route-id="@item.id_product">Edit</a> |
+                    <a asp-page="Seller/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a> |
+                    <a asp-page="Seller/CRUD/Products/Delete" asp-route-id="@item.id_product">Delete</a>
+                </td>
+            }
+            </tr>
 }
     </tbody>
 </table>

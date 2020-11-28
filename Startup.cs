@@ -32,8 +32,9 @@ namespace ZTPSBD
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("AdminOnly", policy => policy.RequireClaim("IamAdmin"));
-                options.AddPolicy("UserSuffice", policy => policy.RequireClaim("IamUser"));
+                options.AddPolicy("AdminOnly", policy => policy.RequireClaim("UserType", "Admin"));
+                options.AddPolicy("SellerSuffice", policy => policy.RequireClaim("UserType", "Admin", "Seller"));
+                options.AddPolicy("UserSuffice", policy => policy.RequireClaim("UserType", "Admin", "Seller", "User"));
             });
 
             services.AddAuthentication("CookieAuthentication")
@@ -46,8 +47,9 @@ namespace ZTPSBD
                  config.Cookie.SameSite = SameSiteMode.Strict;
              });
             services.AddRazorPages(options => {
-                options.Conventions.AuthorizeFolder("/CRUD", "AdminOnly");
-                options.Conventions.AuthorizeFolder("/Browse", "UserSuffice");
+                options.Conventions.AuthorizeFolder("/Admin/", "AdminOnly");
+                options.Conventions.AuthorizeFolder("/Seller/", "SellerSuffice");
+                options.Conventions.AuthorizeFolder("/User/", "UserSuffice");
             });
 
 

@@ -65,7 +65,7 @@ namespace ZTPSBD.Pages.CRUD.Orders
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/User/CRUD/Orders/Index");
         }
 
         private bool OrderExists(int id)
