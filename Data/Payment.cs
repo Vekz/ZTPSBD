@@ -10,17 +10,17 @@ namespace ZTPSBD.Data
     public class Payment
     {
         [Key]
-        [Display(Name = "ID_Płatności")]
+        [Display(Name = "payment")]
         public int id_payment { get; set; }
-        [Display(Name = "Czy zapłacone?")]
+        [Display(Name = "Is paid?")]
         [Required]
         public bool paid { get; set; }
 
-        [Display(Name = "Metoda Płatności")]
+        [Display(Name = "Payment method")]
         public string method { get; set; }
-        [Display(Name = "Data realizacji")]
+        [Display(Name = "Date of payment")]
         public DateTime due_date { get; set; }
-        [Display(Name = "ID Zamówienia")]
+        [Display(Name = "Order ID")]
         [Required]
         public int Order_id_order { get; set; }
 

@@ -11,18 +11,18 @@ namespace ZTPSBD.Data
     public class Adress
     {
         [Key]
-        [Display(Name = "ID Adresu")]
+        [Display(Name = "Address ID")]
         public int id_adress { get; set; }
 
-        [Display(Name = "Ulica")]
+        [Display(Name = "Street")]
         [Required]
         public string street { get; set; }
 
-        [Display(Name = "Miasto")]
+        [Display(Name = "City")]
         [Required]
         public string city { get; set; }
 
-        [Display(Name = "Numer Ulicy")]
+        [Display(Name = "Street Number")]
         [Required]
         public int street_no { get; set; }
 

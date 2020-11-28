@@ -14,22 +14,22 @@ namespace ZTPSBD.Data
         [Key]
         public int id_product { get; set; }
 
-        [Display(Name = "Nazwa")]
+        [Display(Name = "Name")]
         [Required]
         public string name { get; set; }
 
-        [Display(Name = "Cena")]
+        [Display(Name = "Price")]
         [Required]
         public float price { get; set; }
 
-        [Display(Name = "Data Przydatności")]
+        [Display(Name = "How long till expiration")]
         public int expiration_date { get; set; }
 
-        [Display(Name = "Waga (w KG)")]
+        [Display(Name = "Weight (in KG)")]
         [Required]
         public float mass { get; set; }
 
-        [Display(Name = "Kategoria")]
+        [Display(Name = "Category")]
         [Required]
         public  int id_category {get; set;}
 

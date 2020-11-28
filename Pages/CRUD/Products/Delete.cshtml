@@ -2,14 +2,14 @@
 @model ZTPSBD.Pages.CRUD.Products.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete product";
 }
 
-<h1>Delete</h1>
+<h1>@ViewData["Title"]</h1>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Product</h4>
+    
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -40,7 +40,7 @@
             @Html.DisplayNameFor(model => model.Product.product_Category)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.product_Category.id_category)
+            @Html.DisplayFor(model => model.Product.product_Category.name)
         </dd>
     </dl>
     

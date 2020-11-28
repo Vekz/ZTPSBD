@@ -10,11 +10,11 @@ namespace ZTPSBD.Data
 {
     public class Customer_Order
     {
-        [Display(Name = "ID_Klienta")]
+        [Display(Name = "Client ID")]
         [Required]
         public int Customer_id_customer { get; set; }
 
-        [Display(Name = "ID_Zamówienia")]
+        [Display(Name = "Order ID")]
         [Required]
         public int Order_id_order { get; set; }
 

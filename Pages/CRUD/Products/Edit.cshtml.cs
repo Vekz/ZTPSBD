@@ -36,7 +36,7 @@ namespace ZTPSBD.Pages.CRUD.Products
             {
                 return NotFound();
             }
-           ViewData["id_category"] = new SelectList(_context.ProductCategory, "id_category", "id_category");
+            ViewData["id_category"] = new SelectList(_context.ProductCategory, "id_category", "name");
             return Page();
         }
 
@@ -46,6 +46,7 @@ namespace ZTPSBD.Pages.CRUD.Products
         {
             if (!ModelState.IsValid)
             {
+                ViewData["id_category"] = new SelectList(_context.ProductCategory, "id_category", "name");
                 return Page();
             }
 
@@ -67,7 +68,7 @@ namespace ZTPSBD.Pages.CRUD.Products
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Browse/Products");
         }
 
         private bool ProductExists(int id)

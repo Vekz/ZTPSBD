@@ -9,11 +9,11 @@ namespace ZTPSBD.Data
     public class Product_Category
     {
         [Key]
-        [Display(Name = "ID Kategorii")]
+        [Display(Name = "Category ID")]
         [Required]
         public int id_category { get; set; }
 
-        [Display(Name = "Nazwa")]
+        [Display(Name = "Name")]
         [Required]
         public string name { get; set; }
 

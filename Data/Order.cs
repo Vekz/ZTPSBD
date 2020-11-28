@@ -9,19 +9,19 @@ namespace ZTPSBD.Data
     public class Order
     {
         [Key]
-        [Display(Name = "ID_Zamówienia")]
+        [Display(Name = "Order ID")]
         public int id_order { get; set; }
 
-        [Display(Name = "Data Zrealizowania")]
+        [Display(Name = "Date of order")]
         [Required]
         public DateTime due_date { get; set; }
 
-        [Display(Name = "ID_Płatności")]
+        [Display(Name = "Payment ID")]
         [Required]
         public int Payment_id_payment
         { get; set; }
 
-        [Display(Name = "ID_Dostawcy")]
+        [Display(Name = "Devlivery ID")]
         [Required]
         public int Delivery_Service_id_deliveryman { get; set; }
 

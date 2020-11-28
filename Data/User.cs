@@ -10,10 +10,10 @@ namespace ZTPSBD.Data
     public class User
     {
         [Key]
-        [Display(Name = "ID_Użytkownika")]
+        [Display(Name = "User ID")]
         public int id_user { get; set; }
         [Required]
-        [Display(AutoGenerateField = false, Name = "Hasło")]
+        [Display(AutoGenerateField = false, Name = "Password")]
         public string password { get; set; }
         [Required]
         [Display(Name = "Login")]
@@ -21,7 +21,7 @@ namespace ZTPSBD.Data
 
         [EmailAddress]
         [Required]
-        [Display(Name = "Adres e-mail")]
+        [Display(Name = "Address e-mail")]
         public string email_address { get; set; }
 
         public Customer customer { get; set; }

@@ -8,11 +8,11 @@ namespace ZTPSBD.Data
 {
     public class Product_Order
     {
-        [Display(Name = "ID Zamówienia")]
+        [Display(Name = "Order ID")]
         [Required]
         public int Order_id_order { get; set; }
 
-        [Display(Name = "ID Produktu")]
+        [Display(Name = "Product ID")]
         [Required]
         public int Product_id_product { get; set; }
 
