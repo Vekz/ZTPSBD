@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ZTPSBD.Data
 {
@@ -11,6 +12,7 @@ namespace ZTPSBD.Data
 
         [Key]
         [Display(Name = "Delivery ID")]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
         public int id_deliverman { get; set; }
 
         [Display(Name = "Date of delivery")]

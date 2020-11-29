@@ -73,7 +73,7 @@ namespace ZTPSBD.Pages.Login
 
                 claims.Add(new Claim("UserType", user.User_Type));
 
-                claims.Add(new Claim(ClaimTypes.Name, user.login));
+                claims.Add(new Claim("UserName", user.login));
 
 
                 var claimsIdentity = new ClaimsIdentity(claims, "CookieAuthentication");
