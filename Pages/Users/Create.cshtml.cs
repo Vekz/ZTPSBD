@@ -20,6 +20,8 @@ namespace ZTPSBD.Pages.CRUD.Users
 
         public IActionResult OnGet()
         {
+            List<String> Types = new List<String> { "User", "Seller", "Admin" };
+            ViewData["types"] = new SelectList(Types);
             return Page();
         }
 
@@ -32,6 +34,8 @@ namespace ZTPSBD.Pages.CRUD.Users
         {
             if (!ModelState.IsValid)
             {
+                List<String> Types = new List<String> { "User", "Seller", "Admin" };
+                ViewData["types"] = new SelectList(Types, User.User_Type);
                 return Page();
             }
 

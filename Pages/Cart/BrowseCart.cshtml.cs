@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ZTPSBD.DAL;
 using ZTPSBD.Data;
 
 namespace ZTPSBD.Pages.Browse
@@ -26,7 +25,7 @@ namespace ZTPSBD.Pages.Browse
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public async Task OnGetAsync()
         {
             ShoppingCart.Clear();
             if (Request.Cookies["ShCart"] != null)
@@ -34,7 +33,7 @@ namespace ZTPSBD.Pages.Browse
                 List<Product> productList;
                 List<string> cookieContent = new List<string>(Request.Cookies["ShCart"].Split(","));
                 cookieContent.Remove("");
-                productList = _context.Product.Include(p => p.product_Category).ToList();
+                productList = await _context.Product.Include(p => p.product_Category).ToListAsync();
                 foreach (Product p in productList)
                 {
                     foreach (string n in cookieContent)
@@ -54,7 +53,6 @@ namespace ZTPSBD.Pages.Browse
                     }
                 }
             }
-            return Page();
         }
 
 
@@ -65,7 +63,7 @@ namespace ZTPSBD.Pages.Browse
             return Page();
         }
         
-        public IActionResult OnPostRemove()
+        public async Task OnPostRemove()
         {
             string cookie = Request.Cookies["ShCart"];
 
@@ -81,7 +79,7 @@ namespace ZTPSBD.Pages.Browse
                 }   
             }
 
-            return OnGet();
+            await OnGetAsync();
         }   
         
         

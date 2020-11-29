@@ -65,15 +65,18 @@ namespace ZTPSBD
                 options.Conventions.AuthorizePage("/Users/Edit", "UserSuffice"); //But only his
 
                 //Seller access
+                options.Conventions.AuthorizeFolder("/SellersPanel/", "SellerSuffice");
                 options.Conventions.AuthorizeFolder("/Product_Categories/", "SellerSuffice");
                 options.Conventions.AuthorizeFolder("/Product_Order(s)/", "SellerSuffice");
                 options.Conventions.AuthorizeFolder("/Customer_Order(s)/", "SellerSuffice");
                 options.Conventions.AuthorizeFolder("/Products/", "SellerSuffice");
-                options.Conventions.AuthorizeFolder("/Payments/", "SellerSuffice");
+                options.Conventions.AuthorizePage("/Payments/Index", "SellerSuffice");
+                options.Conventions.AuthorizePage("/Payments/Details", "SellerSuffice");
                 options.Conventions.AuthorizePage("/Orders/Edit", "SellerSuffice"); //Any users
 
                 //Admin access
                 options.Conventions.AuthorizeFolder("/Delivery_Services/", "AdminOnly");
+                options.Conventions.AuthorizeFolder("/Payments/", "SellerSuffice");
                 options.Conventions.AuthorizePage("/Users/Create", "AdminOnly");
                 options.Conventions.AuthorizePage("/Users/Delete", "AdminOnly");
                 options.Conventions.AuthorizePage("/Users/Details", "AdminOnly");

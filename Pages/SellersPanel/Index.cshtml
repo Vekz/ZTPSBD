@@ -1,0 +1,12 @@
+﻿@page
+@model ZTPSBD.Pages.SellersPanel.IndexModel
+@{
+    ViewData["Title"] = "Seller's panel";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<a asp-page="/Orders/Index" class="btn btn-primary btn-large">Manage Orders</a>
+<a asp-page="/Product_Categories/Index" class="btn btn-primary btn-large">Manage Categories</a>
+<a asp-page="/Products/Products" class="btn btn-primary btn-large">Manage Products</a>
+<a asp-page="/Payments/Index" class="btn btn-primary btn-large">Browse Payments</a>

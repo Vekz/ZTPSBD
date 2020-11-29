@@ -20,7 +20,7 @@ namespace ZTPSBD.Pages.CRUD.Products
 
         public IActionResult OnGet()
         {
-            ViewData["id_category"] = new SelectList(_context.ProductCategory, "id_category", "name");
+            ViewData["name"] = new SelectList(_context.ProductCategory, "id_category", "name");
             return Page();
         }
 
@@ -33,7 +33,7 @@ namespace ZTPSBD.Pages.CRUD.Products
         {
             if (!ModelState.IsValid)
             {
-                ViewData["id_category"] = new SelectList(_context.ProductCategory, "id_category", "name");
+                ViewData["name"] = new SelectList(_context.ProductCategory, "id_category", "name");
                 return Page();
             }
 

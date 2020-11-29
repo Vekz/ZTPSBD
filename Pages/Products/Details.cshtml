@@ -39,11 +39,22 @@
             @Html.DisplayNameFor(model => model.Product.product_Category)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.product_Category.id_category)
+            @Html.DisplayFor(model => model.Product.product_Category.name)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Product.id_product">Edit</a> |
-    <a asp-page="./Products">Back to List</a>
+    @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
+    {
+
+        <a asp-page="./Edit" asp-route-id="@Model.Product.id_product">Edit</a>  
+        <a asp-page="./Delete" asp-route-id="@Model.Product.id_product">Delete</a> 
+    }
+    <form asp-page-handler="Add" method="post">
+    @Html.Hidden("id", Model.Product.id_product)
+    <button type="submit" class="btn btn-primary btn-sm">
+        <span class="glyphicon glyphicon-shopping-cart"></span>Add to basket
+    </button>
+</form>
+<a asp-page="./Products">Back to List</a>
 </div>

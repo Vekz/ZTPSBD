@@ -35,6 +35,9 @@ namespace ZTPSBD.Pages.CRUD.Users
             {
                 return NotFound();
             }
+
+            List<String> Types = new List<String> { "User", "Seller", "Admin" };
+            ViewData["types"] = new SelectList(Types);
             return Page();
         }
 
@@ -44,6 +47,8 @@ namespace ZTPSBD.Pages.CRUD.Users
         {
             if (!ModelState.IsValid)
             {
+                List<String> Types = new List<String> { "User", "Seller", "Admin" };
+                ViewData["types"] = new SelectList(Types);
                 return Page();
             }
 

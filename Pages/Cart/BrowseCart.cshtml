@@ -1,10 +1,11 @@
 ﻿@page
 @model ZTPSBD.Pages.Browse.BrowseCartcshtmlModel
 @{
+    ViewData["Title"] = "Cart";
 }
 
 
-<h1>Your Cart</h1>
+<h1>@ViewData["Title"]</h1>
 
 <table class="table">
   
@@ -58,7 +59,7 @@
                 <td>
                     <form asp-page-handler="Remove" method="post">
                         @Html.Hidden("id", item.id_product)
-                        <button class="btn btn-primary btn-large">Remove Item</button>
+                        <button class="btn btn-danger btn-large">Remove Item</button>
 
                     </form>
                 </td>
@@ -68,11 +69,11 @@
     
     </table>
     <form asp-page-handler="Clear" method="post">
-        <button class="btn btn-primary btn-large">Clear Basket</button>
+        <button class="btn btn-danger btn-large">Clear the Basket</button>
     </form>
 
     <form asp-page-handler="Place" method="post">
-        <button class="btn btn-primary btn-large">Clear Basket</button>
+        <button class="btn btn-success btn-large">Place an Order</button>
     </form>
 
 

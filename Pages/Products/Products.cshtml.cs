@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ZTPSBD.Data;
-using ZTPSBD.DAL;
 using Microsoft.AspNetCore.Http;
 
 namespace ZTPSBD.Pages.CRUD.Products
@@ -32,7 +31,7 @@ namespace ZTPSBD.Pages.CRUD.Products
 
 
 
-        public IActionResult OnPostAdd()
+        public async Task OnPostAdd()
         {
             string cookieResp = Id.ToString() + ',';
             if (!(Request.Cookies["ShCart"] == null))
@@ -41,8 +40,7 @@ namespace ZTPSBD.Pages.CRUD.Products
             }
             Response.Cookies.Append("ShCart", cookieResp, new CookieOptions() { IsEssential = true });
 
-            Product = _context.Product.Include(p => p.product_Category).ToList();
-            return Page();
+            await OnGetAsync();
         }
 
     }
