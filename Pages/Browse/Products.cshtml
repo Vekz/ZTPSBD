@@ -7,9 +7,12 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-page="/Crud/Products/Create">Create New</a>
-</p>
+@if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
+{
+    <p>
+        <a asp-page="/Seller/Crud/Products/Create">Create New</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -56,9 +59,17 @@
                     <a asp-page="Seller/CRUD/Products/Edit" asp-route-id="@item.id_product">Edit</a> |
                     <a asp-page="Seller/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a> |
                     <a asp-page="Seller/CRUD/Products/Delete" asp-route-id="@item.id_product">Delete</a>
-                </td>
-            }
-            </tr>
+                }
+                <a asp-page="Seller/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a>
+
+                <form asp-page-handler="Add" method="post">
+                    @Html.Hidden("id", item.id_product)
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>Add to basket
+                    </button>
+                </form>
+            </td>
+        </tr>
 }
     </tbody>
 </table>
