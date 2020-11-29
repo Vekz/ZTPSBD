@@ -64,8 +64,10 @@
                 <a asp-page="Seller/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a>
 
                 <form asp-page-handler="Add" method="post">
-                    <button class="btn btn-primary btn-large">Dodaj Do koszyka</button>
-                    <input type="hidden" name="id" value="@item.id_product" />
+                    @Html.Hidden("id", item.id_product)
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>Add to basket
+                    </button>
                 </form>
             </td>
         </tr>
