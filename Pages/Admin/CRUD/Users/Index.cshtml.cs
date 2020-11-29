@@ -18,7 +18,7 @@ namespace ZTPSBD.Pages.CRUD.Users
             _context = context;
         }
 
-        public IList<User> User { get;set; }
+        public IList<ZTPSBD.Data.User> User { get;set; }
 
         public async Task OnGetAsync()
         {

@@ -1,0 +1,50 @@
+﻿@page
+@model ZTPSBD.Pages.PlaceOrder.customerPlaceOrderModel
+
+@{
+    ViewData["Title"] = "customerPlaceOrder";
+}
+
+<h1>Place your order</h1>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Order.due_date" class="control-label"></label>
+                <input asp-for="Order.due_date" class="form-control" />
+                <span asp-validation-for="Order.due_date" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Order.Payment_id_payment" class="control-label"></label>
+            <input asp-for="Order.Payment_id_payment" class="form-control" />
+            <span asp-validation-for="Order.Payment_id_payment" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Order.Delivery_Service_id_deliveryman" class="control-label"></label>
+            <input asp-for="Order.Delivery_Service_id_deliveryman" class="form-control" />
+            <span asp-validation-for="Order.Delivery_Service_id_deliveryman" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="payment.method" class="control-label"></label>
+                <input asp-for="payment.method" class="form-control" />
+                <span asp-validation-for="payment.method" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div>
+    <a asp-page="Index">Back to List</a>
+</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

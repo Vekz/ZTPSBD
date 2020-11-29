@@ -12,6 +12,8 @@ namespace ZTPSBD.Pages.Login
     {
         public async Task<IActionResult> OnGet()
         {
+            HttpContext.Session.Remove("username");
+
             await HttpContext.SignOutAsync();
 
             return RedirectToPage("/Index");

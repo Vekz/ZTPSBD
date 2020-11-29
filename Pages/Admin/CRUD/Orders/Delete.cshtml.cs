@@ -52,7 +52,7 @@ namespace ZTPSBD.Pages.CRUD.Orders
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/User/CRUD/Orders/Index");
         }
     }
 }

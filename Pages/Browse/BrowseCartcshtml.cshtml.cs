@@ -99,6 +99,14 @@ namespace ZTPSBD.Pages.Browse
             }
 
             return Page();
+
+
+        }     
+
+        public IActionResult OnPostPlace()
+        {
+
+            return RedirectToPage("/PlaceOrder/customerPlaceOrder");
         }
 
 

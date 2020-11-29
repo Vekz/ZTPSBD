@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -72,9 +73,13 @@ namespace ZTPSBD.Pages.Login
 
                 claims.Add(new Claim("UserType", user.User_Type));
 
-                var claimsIdentity = new ClaimsIdentity(claims, "CookieAuthentication");
-                await HttpContext.SignInAsync("CookieAuthentication", new  ClaimsPrincipal(claimsIdentity));
+                claims.Add(new Claim(ClaimTypes.Name, user.login));
 
+
+                var claimsIdentity = new ClaimsIdentity(claims, "CookieAuthentication");
+                
+                await HttpContext.SignInAsync("CookieAuthentication", new  ClaimsPrincipal(claimsIdentity));
+              
                 if (Url.IsLocalUrl(returnUrl))
                     return Redirect(returnUrl);
                 else
