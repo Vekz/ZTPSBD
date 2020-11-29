@@ -68,7 +68,7 @@ namespace ZTPSBD.Pages.CRUD.Products
                 }
             }
 
-            return RedirectToPage("/Browse/Products");
+            return RedirectToPage("./Products");
         }
 
         private bool ProductExists(int id)
