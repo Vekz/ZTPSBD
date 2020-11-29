@@ -40,7 +40,7 @@ namespace ZTPSBD.Pages.CRUD.Products
             _context.Product.Add(Product);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Browse/Products");
+            return RedirectToPage("./Products");
         }
     }
 }

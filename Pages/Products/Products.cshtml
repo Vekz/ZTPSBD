@@ -10,7 +10,7 @@
 @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
 {
     <p>
-        <a asp-page="/Seller/Crud/Products/Create">Create New</a>
+        <a asp-page="./Create">Create New</a>
     </p>
 }
 <table class="table">
@@ -56,10 +56,10 @@
             @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
             {
                 
-                    <a asp-page="Seller/CRUD/Products/Edit" asp-route-id="@item.id_product">Edit</a> 
-                    <a asp-page="Seller/CRUD/Products/Delete" asp-route-id="@item.id_product">Delete</a>
+                    <a asp-page="./Edit" asp-route-id="@item.id_product">Edit</a> 
+                    <a asp-page="./Delete" asp-route-id="@item.id_product">Delete</a>
              }
-                <a asp-page="Seller/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a>
+                <a asp-page="./Details" asp-route-id="@item.id_product">Details</a>
 
                 <form asp-page-handler="Add" method="post">
                     @Html.Hidden("id", item.id_product)

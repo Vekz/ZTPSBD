@@ -53,7 +53,7 @@ namespace ZTPSBD.Pages.CRUD.Products
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("/Browse/Products");
+            return RedirectToPage("./Products");
         }
     }
 }

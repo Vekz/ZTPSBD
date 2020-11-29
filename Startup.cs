@@ -73,7 +73,7 @@ namespace ZTPSBD
                 options.Conventions.AuthorizePage("/Orders/Edit", "SellerSuffice"); //Any users
 
                 //Admin access
-                options.Conventions.AuthorizeFolder("/Delivery_Services/", "AdminOnly")
+                options.Conventions.AuthorizeFolder("/Delivery_Services/", "AdminOnly");
                 options.Conventions.AuthorizePage("/Users/Create", "AdminOnly");
                 options.Conventions.AuthorizePage("/Users/Delete", "AdminOnly");
                 options.Conventions.AuthorizePage("/Users/Details", "AdminOnly");
