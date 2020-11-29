@@ -35,7 +35,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Product) {
+      @foreach (var item in Model.Product) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.name)
@@ -52,14 +52,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.product_Category.name)
             </td>
-
+            <td>
             @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
             {
-                <td>
-                    <a asp-page="Seller/CRUD/Products/Edit" asp-route-id="@item.id_product">Edit</a> |
-                    <a asp-page="Seller/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a> |
+                
+                    <a asp-page="Seller/CRUD/Products/Edit" asp-route-id="@item.id_product">Edit</a> 
                     <a asp-page="Seller/CRUD/Products/Delete" asp-route-id="@item.id_product">Delete</a>
-                }
+             }
                 <a asp-page="Seller/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a>
 
                 <form asp-page-handler="Add" method="post">

@@ -50,11 +50,13 @@ namespace ZTPSBD.Pages.PlaceOrder
             }
 
             string login = String.Empty;
+            List<Customer> customers = await _context.Customer.ToListAsync();
+            List<ZTPSBD.Data.User> users = await _context.User.ToListAsync();
+            List<Payment> payments = await _context.Payment.ToListAsync();
+            
 
             var identity = (ClaimsIdentity)User.Identity;
             IEnumerable<Claim> claims = identity.Claims;
-
-
             foreach (Claim c in claims)
             {
                 if(c.Type == "UserName")
@@ -62,15 +64,14 @@ namespace ZTPSBD.Pages.PlaceOrder
                     login = c.Value;
                 }
             }
-
-
-            List< ZTPSBD.Data.User > users = await _context.User.ToListAsync();
             Data.User user = users.Find(user => user.login.Equals(login));
-            List<Customer> customers = await _context.Customer.ToListAsync();
             int customer_ID = customers.Find(customer => customer.User_id_user == user.id_user).id_customer;              
+
+
 
             customer_order.Customer_id_customer = customer_ID;
             customer_order.Customer_id_customer = Order.id_order;
+
 
             _context.Order.Add(Order);
             await _context.SaveChangesAsync();
