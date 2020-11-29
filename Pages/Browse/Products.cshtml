@@ -7,12 +7,9 @@
 
 <h1>@ViewData["Title"]</h1>
 
-@if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
-{
-    <p>
-        <a asp-page="/Seller/Crud/Products/Create">Create New</a>
-    </p>
-}
+<p>
+    <a asp-page="/Crud/Products/Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -53,22 +50,15 @@
                 @Html.DisplayFor(modelItem => item.product_Category.name)
             </td>
 
-            <td>
-
-                @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
-                {
-
-                    <a asp-page="Seller/CRUD/Products/Edit" asp-route-id="@item.id_product">Edit</a>
+            @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
+            {
+                <td>
+                    <a asp-page="Seller/CRUD/Products/Edit" asp-route-id="@item.id_product">Edit</a> |
+                    <a asp-page="Seller/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a> |
                     <a asp-page="Seller/CRUD/Products/Delete" asp-route-id="@item.id_product">Delete</a>
-                }
-                <a asp-page="Seller/CRUD/Products/Details" asp-route-id="@item.id_product">Details</a>
-
-                <form asp-page-handler="Add" method="post">
-                    <button class="btn btn-primary btn-large">Dodaj Do koszyka</button>
-                    <input type="hidden" name="id" value="@item.id_product" />
-                </form>
-            </td>
-        </tr>
+                </td>
+            }
+            </tr>
 }
     </tbody>
 </table>
