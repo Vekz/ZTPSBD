@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using ZTPSBD.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace ZTPSBD
 {
@@ -38,18 +39,46 @@ namespace ZTPSBD
             });
 
             services.AddAuthentication("CookieAuthentication")
-             .AddCookie("CookieAuthentication", config =>
-             {
-                 config.Cookie.HttpOnly = true;
-                 config.Cookie.SecurePolicy = CookieSecurePolicy.None;
-                 config.Cookie.Name = "UserLoginCookie";
-                 config.LoginPath = "/Login/UserLogin";
-                 config.Cookie.SameSite = SameSiteMode.Strict;
-             });
+            .AddCookie("CookieAuthentication", config =>
+            {
+                config.Cookie.HttpOnly = true;
+                config.Cookie.SecurePolicy = CookieSecurePolicy.None;
+                config.Cookie.Name = "UserLoginCookie";
+                config.LoginPath = "/Login/UserLogin";
+                config.Cookie.SameSite = SameSiteMode.Strict;
+            });
+
             services.AddRazorPages(options => {
-                options.Conventions.AuthorizeFolder("/Admin/", "AdminOnly");
-                options.Conventions.AuthorizeFolder("/Seller/", "SellerSuffice");
-                options.Conventions.AuthorizeFolder("/User/", "UserSuffice");
+                //Anonymous access
+                options.Conventions.AllowAnonymousToPage("/Products/Products");
+                options.Conventions.AllowAnonymousToPage("/Products/Details");
+                options.Conventions.AllowAnonymousToPage("/Login/UserLogin");
+                options.Conventions.AllowAnonymousToFolder("/Cart/");
+                options.Conventions.AllowAnonymousToFolder("/PlaceOrder/");
+
+                //User access
+                options.Conventions.AuthorizeFolder("/Adresses/", "UserSuffice"); //Only sees his addresses and can only edit them
+                options.Conventions.AuthorizePage("/Login/UserLogout", "UserSuffice");
+                options.Conventions.AuthorizePage("/Orders/Index", "UserSuffice"); //But only his
+                options.Conventions.AuthorizePage("/Orders/Details", "UserSuffice"); //But only his
+                options.Conventions.AuthorizePage("/Orders/Delete", "UserSuffice"); //But only his
+                options.Conventions.AuthorizePage("/Users/Edit", "UserSuffice"); //But only his
+
+                //Seller access
+                options.Conventions.AuthorizeFolder("/Product_Categories/", "SellerSuffice");
+                options.Conventions.AuthorizeFolder("/Product_Order(s)/", "SellerSuffice");
+                options.Conventions.AuthorizeFolder("/Customer_Order(s)/", "SellerSuffice");
+                options.Conventions.AuthorizeFolder("/Products/", "SellerSuffice");
+                options.Conventions.AuthorizeFolder("/Payments/", "SellerSuffice");
+                options.Conventions.AuthorizePage("/Orders/Edit", "SellerSuffice"); //Any users
+
+                //Admin access
+                options.Conventions.AuthorizeFolder("/Delivery_Services/", "AdminOnly")
+                options.Conventions.AuthorizePage("/Users/Create", "AdminOnly");
+                options.Conventions.AuthorizePage("/Users/Delete", "AdminOnly");
+                options.Conventions.AuthorizePage("/Users/Details", "AdminOnly");
+                options.Conventions.AuthorizePage("/Users/Index", "AdminOnly");
+                options.Conventions.AuthorizePage("/Orders/Create", "AdminOnly"); //Dunno rly co tu, no ale nie mog¹ sobie niezale¿nie tworzyæ zamówieñ bez poœrednicz¹cej strony
             });
 
 

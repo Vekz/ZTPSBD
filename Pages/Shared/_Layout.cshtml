@@ -22,7 +22,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Browse/Products">Products</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Products/Products">Products</a>
                         </li>
                     </ul>
                 </div>
@@ -32,7 +32,7 @@
                     <div class="nav-item .align-self-end">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Browse/BrowseCart"><span class="glyphicon glyphicon-shopping-cart"></span>Koszyk</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Cart/BrowseCart"><span class="glyphicon glyphicon-shopping-cart"></span>Koszyk</a>
                             </li>
                             <li>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Login/UserLogin"><span class="glyphicon glyphicon-user"></span>Login</a>
@@ -46,7 +46,7 @@
                     <div class="nav-item .align-self-end">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Browse/BrowseCart"><span class="glyphicon glyphicon-shopping-cart"></span>Koszyk</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Cart/BrowseCart"><span class="glyphicon glyphicon-shopping-cart"></span>Koszyk</a>
                             </li>
                             <li>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Login/UserLogout"><span class="glyphicon glyphicon-user"></span>Logout</a>
@@ -64,19 +64,19 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     @if (User.HasClaim("UserType", "User") || User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
                                     {
-                                        <a class="dropdown-item" href="~/User/CRUD/Orders">Orders</a>
+                                        <a class="dropdown-item" href="~/Orders">Orders</a>
                                         @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
                                         {
-                                            <a class="dropdown-item" href="~/Seller/CRUD/Product_Categories">Categories</a>
-                                            <a class="dropdown-item" href="~/Seller/CRUD/Payments">Manage payments</a>
+                                            <a class="dropdown-item" href="~/Product_Categories">Categories</a>
+                                            <a class="dropdown-item" href="~/Payments">Manage payments</a>
                                             @if (User.HasClaim("UserType", "Admin"))
                                             {
-                                                <a class="dropdown-item" href="~/Admin/CRUD/Adresses">Adresses</a>
-                                                <a class="dropdown-item" href="~/Admin/CRUD/Customer_Order(s)">Customer_Orders</a>
-                                                <a class="dropdown-item" href="~/Admin/CRUD/Customers">Customers</a>
-                                                <a class="dropdown-item" href="~/Admin/CRUD/Delivery_Services">Delivery_Services</a>
-                                                <a class="dropdown-item" href="~/Admin/CRUD/Product_Order(s)">Product_Order</a>
-                                                <a class="dropdown-item" href="~/Admin/CRUD/Users">Users</a>
+                                                <a class="dropdown-item" href="~/Adresses">Adresses</a>
+                                                <a class="dropdown-item" href="~/Customer_Order(s)">Customer_Orders</a>
+                                                <a class="dropdown-item" href="~/Customers">Customers</a>
+                                                <a class="dropdown-item" href="~/Delivery_Services">Delivery_Services</a>
+                                                <a class="dropdown-item" href="~/Product_Order(s)">Product_Order</a>
+                                                <a class="dropdown-item" href="~/Users">Users</a>
                                             }
                                         }
                                     }
