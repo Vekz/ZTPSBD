@@ -26,7 +26,7 @@ namespace ZTPSBD.Pages.CRUD.Users
         }
 
         [BindProperty]
-        public User User { get; set; }
+        public User user { get; set; }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
@@ -35,14 +35,20 @@ namespace ZTPSBD.Pages.CRUD.Users
             if (!ModelState.IsValid)
             {
                 List<String> Types = new List<String> { "User", "Seller", "Admin" };
-                ViewData["types"] = new SelectList(Types, User.User_Type);
+                ViewData["types"] = new SelectList(Types, user.User_Type);
                 return Page();
             }
 
-            _context.User.Add(User);
+            if(!User.HasClaim("UserType", "Admin"))
+            {
+                user.User_Type = "User";
+            }
+
+            _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            TempData["userId"] = user.id_user;
+            return RedirectToPage("/Customers/Create");
         }
     }
 }

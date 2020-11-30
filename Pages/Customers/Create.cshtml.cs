@@ -20,7 +20,6 @@ namespace ZTPSBD.Pages.CRUD.Customers
 
         public IActionResult OnGet()
         {
-        ViewData["User_id_user"] = new SelectList(_context.User, "id_user", "login");
             return Page();
         }
 
@@ -36,10 +35,11 @@ namespace ZTPSBD.Pages.CRUD.Customers
                 return Page();
             }
 
+            Customer.User_id_user = (int)TempData["userId"];
             _context.Customer.Add(Customer);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Index");
         }
     }
 }

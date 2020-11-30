@@ -20,7 +20,7 @@ namespace ZTPSBD.Pages.CRUD.Users
         }
 
         [BindProperty]
-        public User User { get; set; }
+        public User user { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +29,9 @@ namespace ZTPSBD.Pages.CRUD.Users
                 return NotFound();
             }
 
-            User = await _context.User.FirstOrDefaultAsync(m => m.id_user == id);
+            user = await _context.User.FirstOrDefaultAsync(m => m.id_user == id);
 
-            if (User == null)
+            if (user == null)
             {
                 return NotFound();
             }
@@ -52,7 +52,7 @@ namespace ZTPSBD.Pages.CRUD.Users
                 return Page();
             }
 
-            _context.Attach(User).State = EntityState.Modified;
+            _context.Attach(user).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace ZTPSBD.Pages.CRUD.Users
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(User.id_user))
+                if (!userExists(user.id_user))
                 {
                     return NotFound();
                 }
@@ -69,11 +69,13 @@ namespace ZTPSBD.Pages.CRUD.Users
                     throw;
                 }
             }
+        
+            if(!User.HasClaim("UserType", "Admin")) { return RedirectToPage("../Index"); }
 
             return RedirectToPage("./Index");
         }
 
-        private bool UserExists(int id)
+        private bool userExists(int id)
         {
             return _context.User.Any(e => e.id_user == id);
         }

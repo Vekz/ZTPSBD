@@ -15,6 +15,7 @@ namespace ZTPSBD.Pages.CRUD.Users
 
         public IndexModel(ZTPSBD.Data.ZTPSBDContext context)
         {
+
             _context = context;
         }
 
