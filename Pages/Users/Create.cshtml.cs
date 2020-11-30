@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ZTPSBD.Data;
 
 namespace ZTPSBD.Pages.CRUD.Users
@@ -43,8 +44,10 @@ namespace ZTPSBD.Pages.CRUD.Users
             {
                 user.User_Type = "User";
             }
+            List<User> list = await _context.User.ToListAsync();
+            User.id_user= list.Count() > 0 ? list.Last().id_user + 1 : 1;
 
-            _context.User.Add(user);
+            _context.User.Add(User);
             await _context.SaveChangesAsync();
 
             TempData["userId"] = user.id_user;

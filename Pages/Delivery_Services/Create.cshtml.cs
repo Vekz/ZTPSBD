@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ZTPSBD.Data;
 
 namespace ZTPSBD.Pages.CRUD.Delivery_Services
@@ -35,6 +36,10 @@ namespace ZTPSBD.Pages.CRUD.Delivery_Services
             {
                 return Page();
             }
+
+
+            List<Delivery_Service> list = await _context.Delivery_Service.ToListAsync();
+            Delivery_Service.id_deliverman = list.Count() > 0 ? list.Last().id_deliverman + 1 : 1;
 
             _context.Delivery_Service.Add(Delivery_Service);
             await _context.SaveChangesAsync();

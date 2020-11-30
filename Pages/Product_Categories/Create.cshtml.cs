@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ZTPSBD.Data;
 
 namespace ZTPSBD.Pages.CRUD.Product_Categories
@@ -34,6 +35,10 @@ namespace ZTPSBD.Pages.CRUD.Product_Categories
             {
                 return Page();
             }
+
+
+            List<Product_Category> list = await _context.ProductCategory.ToListAsync();
+           Product_Category.id_category = list.Count() > 0 ? list.Last().id_category + 1 : 1;
 
             _context.ProductCategory.Add(Product_Category);
             await _context.SaveChangesAsync();
