@@ -15,6 +15,7 @@ namespace ZTPSBD.Pages.PlaceOrder
     {
         private readonly ZTPSBD.Data.ZTPSBDContext _context;
 
+        //It was supposed to be <product_key, product_count> but product count is not used to anything rn
         public Dictionary<int, int> ShoppingCart = new Dictionary<int, int>();
 
         [BindProperty]
@@ -28,7 +29,7 @@ namespace ZTPSBD.Pages.PlaceOrder
         public Payment payment { get; set; }
 
         [BindProperty]
-        public Delivery_Service delivery_service { get; set; }
+        public Delivery_Service delivery_service { get; set; }  
 
         public customerPlaceOrderModel(ZTPSBD.Data.ZTPSBDContext context)
         {
@@ -40,13 +41,7 @@ namespace ZTPSBD.Pages.PlaceOrder
             return Page();
         }
 
-
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
-
-
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostPlaceAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -55,7 +50,7 @@ namespace ZTPSBD.Pages.PlaceOrder
 
             //Fields init
             string login = String.Empty;
-            List<Order> orders = await _context.Order.ToListAsync();
+            List<Order> orders = await _context.Order.AsNoTracking().ToListAsync();
             List<Customer> customers = await _context.Customer.ToListAsync();
             List<ZTPSBD.Data.User> users = await _context.User.ToListAsync();
             List<Payment> payments = await _context.Payment.ToListAsync();
@@ -75,15 +70,18 @@ namespace ZTPSBD.Pages.PlaceOrder
             int customer_ID = customers.Find(customer => customer.User_id_user == user.id_user).id_customer;
             #endregion
 
-            #region setting order fields
+            #region setting row fields
             //Order ID
             Order.id_order = orders.Count > 0 ? orders.Last().id_order + 1 : 1;
+
             //Payment Fields
             payment.id_payment = payments.Count > 0 ? payments.Last().id_payment + 1 : 1;
             payment.Order_id_order = Order.id_order;
             payment.due_date = Order.due_date.AddDays(3d);
+
             //Payment ID
             Order.Payment_id_payment = payment.id_payment;
+
             //Delivery Service Fields
             delivery_service.id_deliverman = delivery_Services.Count > 0 ? delivery_Services.Last().id_deliverman + 1 : 1 ;
             delivery_service.Order_id_order = Order.id_order;
@@ -91,34 +89,39 @@ namespace ZTPSBD.Pages.PlaceOrder
             Order.Delivery_Service_id_deliveryman = delivery_service.id_deliverman;
             #endregion
 
+            //Please do not touch the order in which rows are added
+            _context.Order.Add(Order);
+            await _context.SaveChangesAsync();
+            _context.Add(delivery_service);
+            await _context.SaveChangesAsync();
+
+
             //the stupid tables which i hate
             customer_order.Customer_id_customer = customer_ID;
-            customer_order.Customer_id_customer = Order.id_order;
+            customer_order.Order_id_order = Order.id_order;
 
-          //  List<Product_Order> product_Orders_temp = new List<Product_Order>();
-            
-            foreach(KeyValuePair<int,int> pair in ShoppingCart)
+            _context.Add(payment);
+            await _context.SaveChangesAsync();
+
+            _context.Add(customer_order);
+            await _context.SaveChangesAsync();
+
+            //Parse Shopping cart cookie
+            parseCookie();
+
+            //Add one product Order for each prodcut type, sice DB architecture wont allow for quantity
+            foreach (KeyValuePair<int,int> pair in ShoppingCart)
             {
-                _context.Product_Order.Add(new Product_Order() { Order_id_order = Order.id_order, Product_id_product = pair.Key });
+
+                _context.Product_Order.Add(new Product_Order() {Order_id_order = Order.id_order, Product_id_product = pair.Key });
                 await _context.SaveChangesAsync();
             }
 
-            //add everything do database
-            _context.Add(delivery_service);
-            await _context.SaveChangesAsync();
-            _context.Add(customer_order);
-            await _context.SaveChangesAsync();
-            _context.Add(payment);
-            await _context.SaveChangesAsync();
-            _context.Order.Add(Order);
-            await _context.SaveChangesAsync();;
-
-
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Index");
         }
 
        
-        public void parseCookie()
+        private void parseCookie()
         {
             //Stolne code from artur
             ShoppingCart.Clear();

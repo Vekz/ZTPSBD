@@ -12,6 +12,7 @@ namespace ZTPSBD.Data
     {
 
         [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
         public int id_product { get; set; }
 
         [Display(Name = "Name")]
