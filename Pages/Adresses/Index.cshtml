@@ -22,9 +22,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Adress[0].street_no)
             </th>
+            @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
+            {
             <th>
                 @Html.DisplayNameFor(model => model.Adress[0].customer)
             </th>
+            }
             <th></th>
         </tr>
     </thead>
@@ -40,9 +43,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.street_no)
             </td>
+            @if (User.HasClaim("UserType", "Admin"))
+            {
             <td>
                 @Html.DisplayFor(modelItem => item.customer.id_customer)
             </td>
+            }
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.id_adress">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.id_adress">Details</a> |

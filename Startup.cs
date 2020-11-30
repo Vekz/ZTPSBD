@@ -53,16 +53,20 @@ namespace ZTPSBD
                 options.Conventions.AllowAnonymousToPage("/Products/Products");
                 options.Conventions.AllowAnonymousToPage("/Products/Details");
                 options.Conventions.AllowAnonymousToPage("/Login/UserLogin");
+                options.Conventions.AllowAnonymousToPage("/Users/Create");
+                options.Conventions.AllowAnonymousToPage("/Customers/Create");
                 options.Conventions.AllowAnonymousToFolder("/Cart/");
                 options.Conventions.AllowAnonymousToFolder("/PlaceOrder/");
 
                 //User access
+                options.Conventions.AuthorizeFolder("/UsersPanel/", "UserSuffice");
                 options.Conventions.AuthorizeFolder("/Adresses/", "UserSuffice"); //Only sees his addresses and can only edit them
                 options.Conventions.AuthorizePage("/Login/UserLogout", "UserSuffice");
                 options.Conventions.AuthorizePage("/Orders/Index", "UserSuffice"); //But only his
                 options.Conventions.AuthorizePage("/Orders/Details", "UserSuffice"); //But only his
                 options.Conventions.AuthorizePage("/Orders/Delete", "UserSuffice"); //But only his
                 options.Conventions.AuthorizePage("/Users/Edit", "UserSuffice"); //But only his
+                options.Conventions.AuthorizePage("/Customers/Edit", "UserSuffice"); //But only his
 
                 //Seller access
                 options.Conventions.AuthorizeFolder("/SellersPanel/", "SellerSuffice");
@@ -76,11 +80,15 @@ namespace ZTPSBD
 
                 //Admin access
                 options.Conventions.AuthorizeFolder("/Delivery_Services/", "AdminOnly");
-                options.Conventions.AuthorizeFolder("/Payments/", "SellerSuffice");
-                options.Conventions.AuthorizePage("/Users/Create", "AdminOnly");
+                options.Conventions.AuthorizePage("/Payments/Create", "AdminOnly");
+                options.Conventions.AuthorizePage("/Payments/Edit", "AdminOnly");
+                options.Conventions.AuthorizePage("/Payments/Delete", "AdminOnly");
                 options.Conventions.AuthorizePage("/Users/Delete", "AdminOnly");
                 options.Conventions.AuthorizePage("/Users/Details", "AdminOnly");
                 options.Conventions.AuthorizePage("/Users/Index", "AdminOnly");
+                options.Conventions.AuthorizePage("/Customers/Delete", "AdminOnly");
+                options.Conventions.AuthorizePage("/Customers/Details", "AdminOnly");
+                options.Conventions.AuthorizePage("/Customers/Index", "AdminOnly");
                 options.Conventions.AuthorizePage("/Orders/Create", "AdminOnly"); //Dunno rly co tu, no ale nie mog¹ sobie niezale¿nie tworzyæ zamówieñ bez poœrednicz¹cej strony
             });
 

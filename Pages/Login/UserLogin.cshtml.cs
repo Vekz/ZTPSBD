@@ -76,6 +76,7 @@ namespace ZTPSBD.Pages.Login
                 claims.Add(new Claim("UserName", user.login));
 
 
+
                 var claimsIdentity = new ClaimsIdentity(claims, "CookieAuthentication");
                 
                 await HttpContext.SignInAsync("CookieAuthentication", new  ClaimsPrincipal(claimsIdentity));

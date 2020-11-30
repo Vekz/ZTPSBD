@@ -19,7 +19,6 @@ namespace ZTPSBD.Pages.CRUD.Products
         public string DateSort { get; set; }
         public string MassSort { get; set; }
         public string CurrentFilter { get; set; }
-        public string CurrentSort { get; set; }
 
         [BindProperty]
         public int Id { get; set; }

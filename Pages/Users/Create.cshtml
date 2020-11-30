@@ -14,25 +14,28 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="User.password" class="control-label"></label>
-                <input asp-for="User.password" class="form-control" />
-                <span asp-validation-for="User.password" class="text-danger"></span>
+                <label asp-for="user.password" class="control-label"></label>
+                <input asp-for="user.password" class="form-control" />
+                <span asp-validation-for="user.password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="User.login" class="control-label"></label>
-                <input asp-for="User.login" class="form-control" />
-                <span asp-validation-for="User.login" class="text-danger"></span>
+                <label asp-for="user.login" class="control-label"></label>
+                <input asp-for="user.login" class="form-control" />
+                <span asp-validation-for="user.login" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="User.email_address" class="control-label"></label>
-                <input asp-for="User.email_address" class="form-control" />
-                <span asp-validation-for="User.email_address" class="text-danger"></span>
+                <label asp-for="user.email_address" class="control-label"></label>
+                <input asp-for="user.email_address" class="form-control" />
+                <span asp-validation-for="user.email_address" class="text-danger"></span>
             </div>
+            @if(User.HasClaim("UserType", "Admin"))
+            {
             <div class="form-group">
-                <label asp-for="User.User_Type" class="control-label"></label>
-                <select asp-for="User.User_Type" class="form-control" asp-items="ViewBag.types"></select>
-                <span asp-validation-for="User.User_Type" class="text-danger"></span>
+                <label asp-for="user.User_Type" class="control-label"></label>
+                <select asp-for="user.User_Type" class="form-control" asp-items="ViewBag.types"></select>
+                <span asp-validation-for="user.User_Type" class="text-danger"></span>
             </div>
+            }
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

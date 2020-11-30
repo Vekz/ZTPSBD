@@ -28,10 +28,13 @@
                 <input asp-for="Adress.street_no" class="form-control" />
                 <span asp-validation-for="Adress.street_no" class="text-danger"></span>
             </div>
+            @if(User.HasClaim("UserType", "Admin"))
+            {
             <div class="form-group">
                 <label asp-for="Adress.Customer_Id_customer" class="control-label"></label>
                 <select asp-for="Adress.Customer_Id_customer" class ="form-control" asp-items="ViewBag.Customer_Id_customer"></select>
             </div>
+            }
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

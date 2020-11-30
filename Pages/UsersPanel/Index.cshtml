@@ -1,0 +1,12 @@
+﻿@page
+@model ZTPSBD.Pages.UserPanel.IndexModel
+@{
+    ViewData["Title"] = "User's panel";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<a asp-page="/Adresses/Index" class="btn btn-primary btn-large">Manage Your Addresses</a>
+<a asp-page="/Orders/Index" class="btn btn-primary btn-large">Manage Your Orders</a>
+<a asp-page="/Users/Edit" asp-route-id="@Model.IdUser" class="btn btn-primary btn-large">Change your login/password</a>
+<a asp-page="/Customers/Edit" asp-route-id="@Model.IdCustomer" class="btn btn-primary btn-large">Manage Your Account Information</a>
