@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ZTPSBD.Data;
 
 namespace ZTPSBD.Pages.CRUD.Orders
@@ -34,6 +35,10 @@ namespace ZTPSBD.Pages.CRUD.Orders
             {
                 return Page();
             }
+
+
+            List<Order> list = await _context.Order.ToListAsync();
+            Order.id_order = list.Count() > 0 ? list.Last().id_order + 1 : 1;
 
             _context.Order.Add(Order);
             await _context.SaveChangesAsync();

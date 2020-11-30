@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ZTPSBD.Data;
 
 namespace ZTPSBD.Pages.CRUD.Adresses
@@ -35,6 +36,9 @@ namespace ZTPSBD.Pages.CRUD.Adresses
             {
                 return Page();
             }
+
+            List<Adress> list = await _context.Adress.ToListAsync();
+            Adress.id_adress = list.Count() > 0 ? list.Last().id_adress + 1 : 1;
 
             _context.Adress.Add(Adress);
             await _context.SaveChangesAsync();

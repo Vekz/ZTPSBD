@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ZTPSBD.Data;
 
 namespace ZTPSBD.Pages.CRUD.Payments
@@ -35,6 +36,11 @@ namespace ZTPSBD.Pages.CRUD.Payments
             {
                 return Page();
             }
+
+
+
+            List<Payment> list = await _context.Payment.ToListAsync();
+            Payment.id_payment = list.Count() > 0 ? list.Last().id_payment + 1 : 1;
 
             _context.Payment.Add(Payment);
             await _context.SaveChangesAsync();

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ZTPSBD.Data;
 
 namespace ZTPSBD.Pages.CRUD.Customers
@@ -35,6 +36,10 @@ namespace ZTPSBD.Pages.CRUD.Customers
             {
                 return Page();
             }
+
+
+            List<Customer> list = await _context.Customer.ToListAsync();
+            Customer.id_customer = list.Count() > 0 ? list.Last().id_customer + 1 : 1;
 
             _context.Customer.Add(Customer);
             await _context.SaveChangesAsync();
