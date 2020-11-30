@@ -12,30 +12,34 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @*Nie wiem po co date sie wybiera ale nie mam pomysłu na razie na inne pola*@
             <div class="form-group">
                 <label asp-for="Order.due_date" class="control-label"></label>
                 <input asp-for="Order.due_date" class="form-control" />
                 <span asp-validation-for="Order.due_date" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-            <label asp-for="Order.Payment_id_payment" class="control-label"></label>
-            <input asp-for="Order.Payment_id_payment" class="form-control" />
-            <span asp-validation-for="Order.Payment_id_payment" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Order.Delivery_Service_id_deliveryman" class="control-label"></label>
-            <input asp-for="Order.Delivery_Service_id_deliveryman" class="form-control" />
-            <span asp-validation-for="Order.Delivery_Service_id_deliveryman" class="text-danger"></span>
-        </div>*@
+                <label asp-for="Order.Payment_id_payment" class="control-label"></label>
+                <input asp-for="Order.Payment_id_payment" class="form-control" />
+                <span asp-validation-for="Order.Payment_id_payment" class="text-danger"></span>
+            </div>
+
+                <div class="form-group">
+                    <label asp-for="Order.Delivery_Service_id_deliveryman" class="control-label"></label>
+                    <input asp-for="Order.Delivery_Service_id_deliveryman" class="form-control" />
+                    <span asp-validation-for="Order.Delivery_Service_id_deliveryman" class="text-danger"></span>
+                </div>
+            *@
             <div class="form-group">
                 <label asp-for="payment.method" class="control-label"></label>
                 <input asp-for="payment.method" class="form-control" />
                 <span asp-validation-for="payment.method" class="text-danger"></span>
             </div>
+        </form>
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+        <form asp-page-handler="Place" method="post">
+            <button class="btn btn-primary btn-large">Place Order</button>
         </form>
     </div>
 </div>

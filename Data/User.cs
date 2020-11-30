@@ -11,6 +11,7 @@ namespace ZTPSBD.Data
     {
         [Key]
         [Display(Name = "User ID")]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
         public int id_user { get; set; }
         [Required]
         [Display(AutoGenerateField = false, Name = "Password")]

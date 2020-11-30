@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace ZTPSBD.Data
     {
         [Key]
         [Display(Name = "Order ID")]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
         public int id_order { get; set; }
 
         [Display(Name = "Date of order")]

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace ZTPSBD.Data
     {
         [Key]
         [Display(Name = "payment")]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
         public int id_payment { get; set; }
         [Display(Name = "Is paid?")]
         [Required]

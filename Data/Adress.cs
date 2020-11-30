@@ -12,6 +12,7 @@ namespace ZTPSBD.Data
     {
         [Key]
         [Display(Name = "Address ID")]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
         public int id_adress { get; set; }
 
         [Display(Name = "Street")]
