@@ -13,20 +13,38 @@
         <a asp-page="./Create">Create New</a>
     </p>
 }
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
+                <a asp-page="./Products" asp-route-sortOrder="@Model.NameSort">
                 @Html.DisplayNameFor(model => model.Product[0].name)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].price)
+                <a asp-page="./Products" asp-route-sortOrder="@Model.PriceSort">
+                    @Html.DisplayNameFor(model => model.Product[0].price)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].expiration_date)
+                <a asp-page="./Products" asp-route-sortOrder="@Model.DateSort">
+                    @Html.DisplayNameFor(model => model.Product[0].expiration_date)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].mass)
+                <a asp-page="./Products" asp-route-sortOrder="@Model.MassSort">
+                    @Html.DisplayNameFor(model => model.Product[0].mass)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product[0].product_Category)
