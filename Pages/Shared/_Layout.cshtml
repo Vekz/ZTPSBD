@@ -48,6 +48,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Cart/BrowseCart"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</a>
                             </li>
+                            @if (User.HasClaim("UserType", "User"))
+                            {
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/UsersPanel/Index">User's panel</a>
+                                </li>
+                            }
                             @if (User.HasClaim("UserType", "Seller"))
                             {
                                 <li>

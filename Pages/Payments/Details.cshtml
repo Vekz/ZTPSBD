@@ -12,6 +12,12 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Payment.id_payment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Payment.id_payment)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Payment.paid)
         </dt>
         <dd class="col-sm-10">
@@ -38,6 +44,9 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Payment.id_payment">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    @if (User.HasClaim("UserType", "Admin"))
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Payment.id_payment">Edit</a>
+    }
+<a asp-page="./Index">Back to List</a>
 </div>

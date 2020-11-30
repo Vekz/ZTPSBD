@@ -13,6 +13,8 @@ namespace ZTPSBD.Pages.CRUD.Orders
     {
         private readonly ZTPSBD.Data.ZTPSBDContext _context;
 
+        public string CurrentFilter { get; set; }
+
         public IndexModel(ZTPSBD.Data.ZTPSBDContext context)
         {
             _context = context;
@@ -20,9 +22,16 @@ namespace ZTPSBD.Pages.CRUD.Orders
 
         public IList<Order> Order { get;set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchString)
         {
+            CurrentFilter = searchString;
+
             Order = await _context.Order.ToListAsync();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Order = Order.Where(s => s.id_order.Equals(Int32.Parse(searchString))).ToList();
+            }
         }
     }
 }

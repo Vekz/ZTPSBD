@@ -13,6 +13,8 @@ namespace ZTPSBD.Pages.CRUD.Payments
     {
         private readonly ZTPSBD.Data.ZTPSBDContext _context;
 
+        public string CurrentFilter { get; set; }
+
         public IndexModel(ZTPSBD.Data.ZTPSBDContext context)
         {
             _context = context;
@@ -20,9 +22,16 @@ namespace ZTPSBD.Pages.CRUD.Payments
 
         public IList<Payment> Payment { get;set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchString)
         {
+            CurrentFilter = searchString;
+
             Payment = await _context.Payment.Include(p => p.order).ToListAsync();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Payment = Payment.Where(s => s.id_payment.Equals(Int32.Parse(searchString))).ToList();
+            }
         }
     }
 }

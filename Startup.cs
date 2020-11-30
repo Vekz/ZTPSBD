@@ -57,6 +57,7 @@ namespace ZTPSBD
                 options.Conventions.AllowAnonymousToFolder("/PlaceOrder/");
 
                 //User access
+                options.Conventions.AuthorizeFolder("/UsersPanel/", "UserSuffice");
                 options.Conventions.AuthorizeFolder("/Adresses/", "UserSuffice"); //Only sees his addresses and can only edit them
                 options.Conventions.AuthorizePage("/Login/UserLogout", "UserSuffice");
                 options.Conventions.AuthorizePage("/Orders/Index", "UserSuffice"); //But only his
@@ -76,7 +77,9 @@ namespace ZTPSBD
 
                 //Admin access
                 options.Conventions.AuthorizeFolder("/Delivery_Services/", "AdminOnly");
-                options.Conventions.AuthorizeFolder("/Payments/", "SellerSuffice");
+                options.Conventions.AuthorizePage("/Payments/Create", "AdminOnly");
+                options.Conventions.AuthorizePage("/Payments/Edit", "AdminOnly");
+                options.Conventions.AuthorizePage("/Payments/Delete", "AdminOnly");
                 options.Conventions.AuthorizePage("/Users/Create", "AdminOnly");
                 options.Conventions.AuthorizePage("/Users/Delete", "AdminOnly");
                 options.Conventions.AuthorizePage("/Users/Details", "AdminOnly");

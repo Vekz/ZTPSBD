@@ -36,7 +36,11 @@ namespace ZTPSBD.Pages.CRUD.Adresses
             {
                 return NotFound();
             }
-           ViewData["Customer_Id_customer"] = new SelectList(_context.Customer, "id_customer", "id_customer");
+
+            if (!User.HasClaim("UserType", "User") || User.HasClaim("UserType", "Seller"))
+            {
+                ViewData["Customer_Id_customer"] = new SelectList(_context.Customer, "id_customer", "id_customer");
+            }
             return Page();
         }
 
@@ -49,6 +53,10 @@ namespace ZTPSBD.Pages.CRUD.Adresses
                 return Page();
             }
 
+            if (User.HasClaim("UserType", "User") || User.HasClaim("UserType", "Seller"))
+            {
+                Adress.Customer_Id_customer = (int)TempData["customerId"];
+            }
             _context.Attach(Adress).State = EntityState.Modified;
 
             try

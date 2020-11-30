@@ -6,13 +6,28 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-
+@if (User.HasClaim("UserType", "Admin"))
+{
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+}
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by id:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment[0].id_payment)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Payment[0].paid)
             </th>
@@ -32,6 +47,9 @@
 @foreach (var item in Model.Payment) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.id_payment)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.paid)
             </td>
             <td>
@@ -44,9 +62,12 @@
                 @Html.DisplayFor(modelItem => item.order.id_order)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.id_payment">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.id_payment">Details</a> |
+                <a asp-page="./Details" asp-route-id="@item.id_payment">Details</a>
+                @if (User.HasClaim("UserType", "Admin"))
+                {
+                <a asp-page="./Edit" asp-route-id="@item.id_payment">Edit</a>
                 <a asp-page="./Delete" asp-route-id="@item.id_payment">Delete</a>
+                }
             </td>
         </tr>
 }

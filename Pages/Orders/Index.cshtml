@@ -8,11 +8,24 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-page="/Admin/CRUD/Orders/Create">Create New</a>
+    <a asp-page="./Create">Create New</a>
 </p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by id:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].id_order)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Order[0].due_date)
             </th>
@@ -29,6 +42,9 @@
 @foreach (var item in Model.Order) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.id_order)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.due_date)
             </td>
             <td>
@@ -38,10 +54,10 @@
                 @Html.DisplayFor(modelItem => item.Delivery_Service_id_deliveryman)
             </td>
             <td>
-                <a asp-page="./Details" asp-route-id="@item.id_order">Details</a> 
-                <a asp-page="/Seller/CRUD/Orders/Edit" asp-route-id="@item.id_order">Edit</a> 
-                <a asp-page="/Admin/CRUD/Orders/Delete" asp-route-id="@item.id_order">Delete</a>
-                
+                <a asp-page="./Details" asp-route-id="@item.id_order">Details</a>
+                <a asp-page="./Edit" asp-route-id="@item.id_order">Edit</a>
+                <a asp-page="./Delete" asp-route-id="@item.id_order">Delete</a>
+
             </td>
         </tr>
 }
