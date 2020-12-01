@@ -39,7 +39,9 @@ namespace ZTPSBD.Pages.CRUD.Customers
             _context.Customer.Add(Customer);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("../Index");
+            if (!User.HasClaim("UserType", "Admin")) { return RedirectToPage("/Login/UserLogin"); }
+
+            return RedirectToPage("./Index");
         }
     }
 }

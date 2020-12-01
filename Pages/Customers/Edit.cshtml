@@ -29,11 +29,19 @@
                 <input asp-for="Customer.vat_number" class="form-control" />
                 <span asp-validation-for="Customer.vat_number" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Customer.User_id_user" class="control-label"></label>
-                <select asp-for="Customer.User_id_user" class="form-control" asp-items="ViewBag.User_id_user"></select>
-                <span asp-validation-for="Customer.User_id_user" class="text-danger"></span>
-            </div>
+            @if (User.HasClaim("UserType", "Admin"))
+            {
+                <div class="form-group">
+                    <label asp-for="Customer.User_id_user" class="control-label"></label>
+                    <select asp-for="Customer.User_id_user" class="form-control" asp-items="ViewBag.User_id_user"></select>
+                    <span asp-validation-for="Customer.User_id_user" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Customer.User_id_user" />
+            }
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -41,9 +49,18 @@
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
+@if (User.HasClaim("UserType", "Admin"))
+{
+    <div>
+        <a asp-page="./Index">Back to List</a>
+    </div>
+}
+else
+{
+    <div>
+        <a asp-page="/UsersPanel/Index">Back to List</a>
+    </div>
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

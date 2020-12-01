@@ -12,6 +12,7 @@ namespace ZTPSBD.Pages.CRUD.Users
     public class CreateModel : PageModel
     {
         private readonly ZTPSBD.Data.ZTPSBDContext _context;
+        List<String> Types = new List<String> { "User", "Seller", "Admin" };
 
         public CreateModel(ZTPSBD.Data.ZTPSBDContext context)
         {
@@ -20,7 +21,6 @@ namespace ZTPSBD.Pages.CRUD.Users
 
         public IActionResult OnGet()
         {
-            List<String> Types = new List<String> { "User", "Seller", "Admin" };
             ViewData["types"] = new SelectList(Types);
             return Page();
         }
@@ -34,7 +34,6 @@ namespace ZTPSBD.Pages.CRUD.Users
         {
             if (!ModelState.IsValid)
             {
-                List<String> Types = new List<String> { "User", "Seller", "Admin" };
                 ViewData["types"] = new SelectList(Types, user.User_Type);
                 return Page();
             }

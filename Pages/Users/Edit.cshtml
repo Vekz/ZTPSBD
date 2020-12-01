@@ -26,6 +26,11 @@
                     <span asp-validation-for="user.login" class="text-danger"></span>
                 </div>
             }
+            else
+            {
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="user.login" />
+            }
             <div class="form-group">
                 <label asp-for="user.email_address" class="control-label"></label>
                 <input asp-for="user.email_address" class="form-control" />
@@ -39,6 +44,11 @@
                     <span asp-validation-for="user.User_Type" class="text-danger"></span>
                 </div>
             }
+            else
+            {
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="user.User_Type" />
+            }
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -49,6 +59,12 @@
 {
     <div>
         <a asp-page="./Index">Back to List</a>
+    </div>
+}
+else
+{
+    <div>
+        <a asp-page="/UsersPanel/Index">Back to List</a>
     </div>
 }
 

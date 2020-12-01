@@ -14,6 +14,7 @@ namespace ZTPSBD.Pages.CRUD.Users
     {
         private readonly ZTPSBD.Data.ZTPSBDContext _context;
 
+        List<String> Types = new List<String> { "User", "Seller", "Admin" };
         public EditModel(ZTPSBD.Data.ZTPSBDContext context)
         {
             _context = context;
@@ -36,7 +37,6 @@ namespace ZTPSBD.Pages.CRUD.Users
                 return NotFound();
             }
 
-            List<String> Types = new List<String> { "User", "Seller", "Admin" };
             ViewData["types"] = new SelectList(Types);
             return Page();
         }
@@ -47,7 +47,6 @@ namespace ZTPSBD.Pages.CRUD.Users
         {
             if (!ModelState.IsValid)
             {
-                List<String> Types = new List<String> { "User", "Seller", "Admin" };
                 ViewData["types"] = new SelectList(Types);
                 return Page();
             }
@@ -70,7 +69,7 @@ namespace ZTPSBD.Pages.CRUD.Users
                 }
             }
         
-            if(!User.HasClaim("UserType", "Admin")) { return RedirectToPage("../Index"); }
+            if(!User.HasClaim("UserType", "Admin")) { return RedirectToPage("/UsersPanel/Index"); }
 
             return RedirectToPage("./Index");
         }
