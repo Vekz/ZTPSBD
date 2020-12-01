@@ -59,13 +59,7 @@ namespace ZTPSBD.Pages.PlaceOrder
             #region get Customer ID - I wish i could make it better ( I can but i wont atm)
             var identity = (ClaimsIdentity)User.Identity;
             IEnumerable<Claim> claims = identity.Claims;
-            foreach (Claim c in claims)
-            {
-                if(c.Type == "UserName")
-                {
-                    login = c.Value;
-                }
-            }
+            login = User.Identity.Name;
             Data.User user = users.Find(user => user.login.Equals(login));
             int customer_ID = customers.Find(customer => customer.User_id_user == user.id_user).id_customer;
             #endregion

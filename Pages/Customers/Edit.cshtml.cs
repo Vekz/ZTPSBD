@@ -67,6 +67,8 @@ namespace ZTPSBD.Pages.CRUD.Customers
                 }
             }
 
+            if (!User.HasClaim("UserType", "Admin")) { return RedirectToPage("/UsersPanel/Index"); }
+
             return RedirectToPage("./Index");
         }
 
