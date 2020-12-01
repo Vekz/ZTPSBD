@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections;
-using Microsoft.EntityFrameworkCore;
-
 namespace ZTPSBD.Data
 {
     public class User
@@ -18,11 +16,8 @@ namespace ZTPSBD.Data
         [Required]
         [Display(AutoGenerateField = false, Name = "Password")]
         public string password { get; set; }
-
-
         [Required]
         [Display(Name = "Login")]
-        [StringLength(450)]
         public string login { get; set; }
 
         public string User_Type { get; set; }
