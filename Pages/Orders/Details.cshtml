@@ -37,6 +37,59 @@
         </dd>
     </dl>
 </div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Products.Keys.FirstOrDefault().name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Products.Keys.FirstOrDefault().price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Products.Keys.FirstOrDefault().expiration_date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Products.Keys.FirstOrDefault().mass)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Products.Keys.FirstOrDefault().product_Category)
+                </th>
+                <th>
+                    Count
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key.expiration_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key.mass)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key.product_Category.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+            </tr>
+            }
+            </tbody>
+    </table>
+</div>
+
 <div>
     <a asp-page="./Index">Back to List</a>
 </div>

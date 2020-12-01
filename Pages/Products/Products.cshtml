@@ -71,18 +71,24 @@
                 @Html.DisplayFor(modelItem => item.product_Category.name)
             </td>
             <td>
-            @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
-            {
-                
-                    <a asp-page="./Edit" asp-route-id="@item.id_product">Edit</a> 
+                @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
+                {
+
+                    <a asp-page="./Edit" asp-route-id="@item.id_product">Edit</a>
                     <a asp-page="./Delete" asp-route-id="@item.id_product">Delete</a>
-             }
+                }
                 <a asp-page="./Details" asp-route-id="@item.id_product">Details</a>
 
                 <form asp-page-handler="Add" method="post">
                     @Html.Hidden("id", item.id_product)
                     <button type="submit" class="btn btn-primary btn-sm">
                         <span class="glyphicon glyphicon-shopping-cart"></span>Add to basket
+                    </button>
+                </form>
+                <form asp-page-handler="Buy" method="post">
+                    @Html.Hidden("id", item.id_product)
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        Buy now
                     </button>
                 </form>
             </td>

@@ -55,6 +55,12 @@
     <button type="submit" class="btn btn-primary btn-sm">
         <span class="glyphicon glyphicon-shopping-cart"></span>Add to basket
     </button>
-</form>
+    </form>
+    <form asp-page-handler="Buy" method="post">
+    @Html.Hidden("id", Model.Product.id_product)
+    <button type="submit" class="btn btn-primary btn-sm">
+        Buy now
+    </button>
+    </form>
 <a asp-page="./Products">Back to List</a>
 </div>

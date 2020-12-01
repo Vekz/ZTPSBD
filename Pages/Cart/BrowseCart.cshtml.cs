@@ -85,11 +85,10 @@ namespace ZTPSBD.Pages.Browse
         
         public IActionResult OnPostPlace()
         {
+            TempData["BuyNow"] = Request.Cookies["ShCart"];
+            ShoppingCart.Clear();
+            Response.Cookies.Append("ShCart", "", new CookieOptions() { IsEssential = true });
             return RedirectToPage("/PlaceOrder/customerPlaceOrder");
         }
-
-
-
-
     }
 }

@@ -51,5 +51,11 @@ namespace ZTPSBD.Pages.CRUD.Products
 
             await OnGetAsync(Id);
         }
+
+        public IActionResult OnPostBuy()
+        {
+            TempData["BuyNow"] = Id.ToString() + ",";
+            return RedirectToPage("/PlaceOrder/customerPlaceOrder");
+        }
     }
 }

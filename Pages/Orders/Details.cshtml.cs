@@ -19,6 +19,7 @@ namespace ZTPSBD.Pages.CRUD.Orders
         }
 
         public Order Order { get; set; }
+        public Dictionary<Product, int> Products = new Dictionary<Product, int>();
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,6 +33,15 @@ namespace ZTPSBD.Pages.CRUD.Orders
             if (Order == null)
             {
                 return NotFound();
+            }
+
+            var prodOrders = _context.Product_Order.Where(po => po.Order_id_order == Order.id_order);
+            var prods = await _context.Product.Join(prodOrders, pr => pr.id_product, po => po.Product_id_product, (pr, po) => pr).Include(p => p.product_Category).ToListAsync();
+
+            var ord = prodOrders.ToList();
+            for(int i=0; i<prods.Count; i++)
+            {
+                Products[prods[i]] = ord.ElementAt(i).Count;
             }
             return Page();
         }

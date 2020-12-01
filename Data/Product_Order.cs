@@ -18,6 +18,9 @@ namespace ZTPSBD.Data
         [Required]
         public int Product_id_product { get; set; }
 
+        [Required]
+        public int Count { get; set; }
+
         public Order order { get; set; }
         public Product product { get; set; }
 

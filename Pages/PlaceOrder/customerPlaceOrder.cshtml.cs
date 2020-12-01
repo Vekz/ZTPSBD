@@ -80,7 +80,10 @@ namespace ZTPSBD.Pages.PlaceOrder
             delivery_service.id_deliverman = delivery_Services.Count > 0 ? delivery_Services.Last().id_deliverman + 1 : 1 ;
             delivery_service.Order_id_order = Order.id_order;
             delivery_service.delivery_date = Order.due_date;
+
+            //Delivery ID
             Order.Delivery_Service_id_deliveryman = delivery_service.id_deliverman;
+
             #endregion
 
             //Please do not touch the order in which rows are added
@@ -101,27 +104,26 @@ namespace ZTPSBD.Pages.PlaceOrder
             await _context.SaveChangesAsync();
 
             //Parse Shopping cart cookie
-            parseCookie();
+            parseProducts();
 
             //Add one product Order for each prodcut type, sice DB architecture wont allow for quantity
             foreach (KeyValuePair<int,int> pair in ShoppingCart)
             {
-
-                _context.Product_Order.Add(new Product_Order() {Order_id_order = Order.id_order, Product_id_product = pair.Key });
+                _context.Product_Order.Add(new Product_Order() {Order_id_order = Order.id_order, Product_id_product = pair.Key, Count = pair.Value });
                 await _context.SaveChangesAsync();
             }
 
             return RedirectToPage("/Index");
         }
 
-       
-        private void parseCookie()
+
+        private void parseProducts()
         {
             //Stolne code from artur
             ShoppingCart.Clear();
-            if (Request.Cookies["ShCart"] != null)
+            if (TempData.Peek("BuyNow") != "")
             {
-                List<string> cookieContent = new List<string>(Request.Cookies["ShCart"].Split(","));
+                List<string> cookieContent = new List<string>(((string)TempData["BuyNow"]).Split(","));
                 cookieContent.Remove("");
 
                 foreach (string n in cookieContent)
@@ -138,7 +140,7 @@ namespace ZTPSBD.Pages.PlaceOrder
                             ShoppingCart[p] += 1;
                         }
                     }
-                }   
+                }
             }
         }
     }

@@ -37,9 +37,7 @@ namespace ZTPSBD.Pages.CRUD.Orders
 
                 int customerId = _context.Customer.Where(c => c.User_id_user == Id).SingleOrDefault().id_customer;
                 var cuOrders = _context.Customer_Order.Where(co => co.Customer_id_customer == customerId);
-                /*var ids = orders.
-                Order = _context.Order.SelectMany(o => orders.Contains(o.id_order));
-                */
+                
                 Order = await _context.Order.Join(cuOrders,
                                             or => or.id_order,
                                             co => co.Order_id_order,
