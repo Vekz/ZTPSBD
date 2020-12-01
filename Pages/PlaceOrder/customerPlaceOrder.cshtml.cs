@@ -57,11 +57,15 @@ namespace ZTPSBD.Pages.PlaceOrder
             List<Delivery_Service> delivery_Services = await _context.Delivery_Service.ToListAsync();
 
             #region get Customer ID - I wish i could make it better ( I can but i wont atm)
-            var identity = (ClaimsIdentity)User.Identity;
-            IEnumerable<Claim> claims = identity.Claims;
-            login = User.Identity.Name;
-            Data.User user = users.Find(user => user.login.Equals(login));
-            int customer_ID = customers.Find(customer => customer.User_id_user == user.id_user).id_customer;
+            int customer_ID = 0;
+            if (User.Identity.IsAuthenticated)
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                IEnumerable<Claim> claims = identity.Claims;
+                login = User.Identity.Name;
+                Data.User user = users.Find(user => user.login.Equals(login));
+                customer_ID = customers.Find(customer => customer.User_id_user == user.id_user).id_customer;
+            }
             #endregion
 
             #region setting row fields
@@ -121,7 +125,7 @@ namespace ZTPSBD.Pages.PlaceOrder
         {
             //Stolne code from artur
             ShoppingCart.Clear();
-            if (TempData.Peek("BuyNow") != "")
+            if (TempData.Peek("BuyNow").ToString() != "")
             {
                 List<string> cookieContent = new List<string>(((string)TempData["BuyNow"]).Split(","));
                 cookieContent.Remove("");

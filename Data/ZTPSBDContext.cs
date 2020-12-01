@@ -71,6 +71,13 @@ namespace ZTPSBD.Data
 
             modelBuilder.Entity<Product_Category>().HasKey(t => t.id_category);
 
+
+            //SEED DATA
+
+            //Account data
+            //Anonymous user needed for making orders by not logged in customers
+            modelBuilder.Entity<User>().HasData(new User { id_user = 0, password = "SUperDziwneZnaczkiŻebyHasłonigdyNIeweszłoPrzeznikogoGdybyPróbował", login="Anonymoususer123454656434312314352123", email_address = "nieisnitejieniae@fkoekfoeofke.olpl", User_Type="User"});
+            modelBuilder.Entity<Customer>().HasData(new Customer { id_customer = 0, name = "Anonymous User", surname = "Anonymous User", vat_number = "0", User_id_user = 0 });
         }
 
 
