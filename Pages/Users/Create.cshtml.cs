@@ -5,14 +5,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ZTPSBD.Data;
 
 namespace ZTPSBD.Pages.CRUD.Users
 {
+    [BindProperties]
     public class CreateModel : PageModel
     {
         private readonly ZTPSBD.Data.ZTPSBDContext _context;
+     
+
+       public bool emailValid = true, loginValid = true;
+
 
         public CreateModel(ZTPSBD.Data.ZTPSBDContext context)
         {
@@ -45,11 +52,44 @@ namespace ZTPSBD.Pages.CRUD.Users
                 user.User_Type = "User";
             }
             List<User> list = await _context.User.ToListAsync();
-            User.id_user= list.Count() > 0 ? list.Last().id_user + 1 : 1;
+            user.id_user= list.Count() > 0 ? list.Last().id_user + 1 : 1;
 
-            _context.User.Add(User);
-            await _context.SaveChangesAsync();
 
+            try
+            {
+                _context.User.Add(user);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+               // throw;
+                loginValid = true;
+                emailValid = true;
+                var dbEx = ex as DbUpdateException;
+                var sqlEx = dbEx?.InnerException as SqlException;
+                if (sqlEx != null)
+                {
+                    if (sqlEx.Number == 2601 || sqlEx.Number == 2627)
+                    {
+                        if (sqlEx.Message.Contains("Indx_Unique"))
+                        {
+                            loginValid = false;
+                           
+                        }
+                       if(sqlEx.Message.Contains("Mail_Unique"))
+                        {
+                            emailValid = false;
+
+                        }
+                        return Page();
+                    }
+                    else
+                        throw;
+                }
+                else
+                    throw;
+
+            }
             TempData["userId"] = user.id_user;
             return RedirectToPage("/Customers/Create");
         }
