@@ -44,9 +44,9 @@ namespace ZTPSBD.Pages.CRUD.Users
                 user.User_Type = "User";
             }
             List<User> list = await _context.User.ToListAsync();
-            User.id_user= list.Count() > 0 ? list.Last().id_user + 1 : 1;
+            user.id_user= list.Count() > 0 ? list.Last().id_user + 1 : 1;
 
-            _context.User.Add(User);
+            _context.User.Add(user);
             await _context.SaveChangesAsync();
 
             TempData["userId"] = user.id_user;
