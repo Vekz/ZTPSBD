@@ -41,7 +41,7 @@ namespace ZTPSBD.Pages.CRUD.Orders
                 Order = await _context.Order.Join(cuOrders,
                                             or => or.id_order,
                                             co => co.Order_id_order,
-                                            (or, co) => or).ToListAsync();
+                                            (or, co) => or).Include(O => O.payment).ToListAsync();
             }
             else
             {

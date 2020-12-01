@@ -27,6 +27,10 @@ namespace ZTPSBD.Data
         [Required]
         public int Delivery_Service_id_deliveryman { get; set; }
 
+        [Required]
+        [Display(Name = "Devlivery Adress")]
+        public string orderAddress { get; set; }
+
 
         public Payment payment;
         public Delivery_Service deliveryService { get; set; }

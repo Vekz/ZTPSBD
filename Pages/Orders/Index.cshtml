@@ -63,10 +63,10 @@
             }
             <td>
                 <a asp-page="./Details" asp-route-id="@item.id_order">Details</a>
-            @if (User.HasClaim("UserType", "Admin"))
+            @if (User.HasClaim("UserType", "Admin") || (!item?.payment.paid ?? false ) )
             {
                 <a asp-page="./Edit" asp-route-id="@item.id_order">Edit</a>
-                <a asp-page="./Delete" asp-route-id="@item.id_order">Delete</a>
+                <a asp-page="./Delete" asp-route-id="@item.id_order">Cancel</a>
             }
             </td>
         </tr>
