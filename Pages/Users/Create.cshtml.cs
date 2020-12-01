@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -57,6 +58,10 @@ namespace ZTPSBD.Pages.CRUD.Users
 
             try
             {
+                PasswordHasher<string> passwordHasher = new PasswordHasher<string>();
+                string hash = passwordHasher.HashPassword(user.login, user.password);
+                user.password = hash;
+
                 _context.User.Add(user);
                 await _context.SaveChangesAsync();
             }

@@ -16,50 +16,36 @@ using ZTPSBD.Data;
 namespace ZTPSBD.Pages.Login
 {
     public class UserLoginModel : PageModel
-    { 
+    {
+        private readonly ZTPSBD.Data.ZTPSBDContext _context;
         private readonly IConfiguration _configuration;
         public string Message { get; set; }
         [BindProperty]
         public ZTPSBD.Data.User user { get; set; }
-        public UserLoginModel(IConfiguration configuration)
+        public UserLoginModel(IConfiguration configuration, ZTPSBD.Data.ZTPSBDContext context)
         {
             _configuration = configuration;
+            _context = context;
         }
         private bool ValidateUser(ZTPSBD.Data.User user)
         {
-            string Password = String.Empty;
-            string Type = String.Empty;
-            string myCompanyDB_connection_string = _configuration.GetConnectionString("MagazynContext");
-            SqlConnection con = new SqlConnection(myCompanyDB_connection_string);
-            SqlCommand cmd = new SqlCommand("GetUserPSWD", con);
-            SqlParameter param = new SqlParameter("@usrname ", user.login);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(param);
-            con.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                Password = reader["password"].ToString();
-                Type = reader["User_Type"].ToString();
-            }
-            user.User_Type = Type;
+            var users = _context.User.ToList();
+            User us = users.Find(u => u.login.Equals(user.login));
 
-            reader.Close(); con.Close();
+            user.User_Type = us.User_Type;
+            String Password = us.password;
 
-            //if (Password == String.Empty)
-            //    return false;
-            //PasswordHasher<string> passwordHasher = new PasswordHasher<string>();
+            if (user.password == String.Empty)
+                return false;
+            PasswordHasher<string> passwordHasher = new PasswordHasher<string>();
+            
+            if (passwordHasher.VerifyHashedPassword(user.login, Password, user.password) ==
+                PasswordVerificationResult.Success)
+                return true;
+            else
+                return false;
 
-            //string hash = passwordHasher.HashPassword(user.login, user.password);
-
-
-            //if (passwordHasher.VerifyHashedPassword(user.login, hash, user.password) ==
-            //    PasswordVerificationResult.Success)
-            //    return true;
-            //else
-            //    return false;
-
-            return user.password.Equals(Password);
+            //return user.password.Equals(Password);
         }
 
 
