@@ -44,6 +44,8 @@ namespace ZTPSBD.Data
             // customer 1-1 user
             modelBuilder.Entity<Customer>().HasKey(Customer => Customer.id_customer);
             modelBuilder.Entity<User>().HasKey(u => u.id_user);
+            modelBuilder.Entity<User>().HasIndex(u => u.login).IsUnique().HasDatabaseName("Indx_Unique");
+            modelBuilder.Entity<User>().HasIndex(u => u.email_address).IsUnique().HasDatabaseName("Mail_Unique");
             modelBuilder.Entity<User>().HasOne(u => u.customer).WithOne(c => c.user).HasForeignKey<Customer>(c => c.User_id_user);
             //customer 1-* Customer_Order *-1 Order
             modelBuilder.Entity<Customer_Order>().HasKey(co => new { co.Customer_id_customer, co.Order_id_order });
