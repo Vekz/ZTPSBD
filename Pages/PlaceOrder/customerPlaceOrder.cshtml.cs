@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ZTPSBD.Data;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace ZTPSBD.Pages.PlaceOrder
 {
@@ -29,35 +30,38 @@ namespace ZTPSBD.Pages.PlaceOrder
         public Payment payment { get; set; }
 
         [BindProperty]
-        public Delivery_Service delivery_service { get; set; }  
+        public Delivery_Service delivery_service { get; set; }
 
+
+
+        #region Private Fields
+        private List<Adress> adresses;
+
+        private string[] paymethods = { "cash", "card" };
+
+        int customer_ID = 0;
+
+        string login = String.Empty;
+
+        public int adress_id = -1;
+
+        List<ZTPSBD.Data.User> users;
+
+        List<Customer> customers; 
+
+        #endregion
         public customerPlaceOrderModel(ZTPSBD.Data.ZTPSBDContext context)
         {
             _context = context;
         }
-
-        public IActionResult OnGet()
+        public async Task < IActionResult > OnGet()
         {
-            return Page();
-        }
-
-        public async Task<IActionResult> OnPostPlaceAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            //Fields init
-            string login = String.Empty;
-            List<Order> orders = await _context.Order.AsNoTracking().ToListAsync();
-            List<Customer> customers = await _context.Customer.ToListAsync();
-            List<ZTPSBD.Data.User> users = await _context.User.ToListAsync();
-            List<Payment> payments = await _context.Payment.ToListAsync();
-            List<Delivery_Service> delivery_Services = await _context.Delivery_Service.ToListAsync();
+            users = await _context.User.ToListAsync();
+            customers = await _context.Customer.ToListAsync();
 
             #region get Customer ID - I wish i could make it better ( I can but i wont atm)
-            int customer_ID = 0;
+
+
             if (User.Identity.IsAuthenticated)
             {
                 var identity = (ClaimsIdentity)User.Identity;
@@ -65,12 +69,61 @@ namespace ZTPSBD.Pages.PlaceOrder
                 login = User.Identity.Name;
                 Data.User user = users.Find(user => user.login.Equals(login));
                 customer_ID = customers.Find(customer => customer.User_id_user == user.id_user).id_customer;
+
             }
             #endregion
+
+            var descriptions =  _context.Adress.Where(a => a.Customer_Id_customer == customer_ID).Select(a => new { id_adress = a.id_adress, Description = string.Format("City:{0} Street:{1} {2}", a.city, a.street, a.street_no)}).ToList();
+            adresses = await _context.Adress.Where(a => a.Customer_Id_customer == customer_ID).ToListAsync();
+
+            ViewData["adresses"] = new SelectList(descriptions, "id_adress", "Description");
+            ViewData["methods"] = new SelectList(paymethods);
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostPlaceAsync()
+        {
+            users = await _context.User.ToListAsync();
+            customers = await _context.Customer.ToListAsync();
+
+            #region get Customer ID - I wish i could make it better ( I can but i wont atm)
+
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                IEnumerable<Claim> claims = identity.Claims;
+                login = User.Identity.Name;
+                Data.User user = users.Find(user => user.login.Equals(login));
+                customer_ID = customers.Find(customer => customer.User_id_user == user.id_user).id_customer;
+
+            }
+            #endregion
+            var descriptions = _context.Adress.Where(a => a.Customer_Id_customer == customer_ID).Select(a => new { id_adress = a.id_adress, Description = string.Format("City:{0} Street:{1} {2}", a.city, a.street, a.street_no) }).ToList();
+
+            adresses = await _context.Adress.Where(a => a.Customer_Id_customer == customer_ID).ToListAsync();
+
+            if (!ModelState.IsValid)
+            {
+                ViewData["adresses"] = new SelectList(adresses, "descriptions", "Description");
+
+                return Page();
+            }
+
+            //Fields init
+            List<Order> orders = await _context.Order.AsNoTracking().ToListAsync();
+            List<Payment> payments = await _context.Payment.ToListAsync();
+            List<Delivery_Service> delivery_Services = await _context.Delivery_Service.ToListAsync();
+
 
             #region setting row fields
             //Order ID
             Order.id_order = orders.Count > 0 ? orders.Last().id_order + 1 : 1;
+            StringBuilder stringBuilder = new StringBuilder();
+            Adress temp = adresses.Find(a => a.Customer_Id_customer == customer_ID);
+            stringBuilder.AppendJoin(':', temp.city, temp.street, temp.street_no.ToString());
+            Order.orderAddress = stringBuilder.ToString();
 
             //Payment Fields
             payment.id_payment = payments.Count > 0 ? payments.Last().id_payment + 1 : 1;
@@ -147,5 +200,7 @@ namespace ZTPSBD.Pages.PlaceOrder
                 }
             }
         }
+
+
     }
 }
