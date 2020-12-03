@@ -16,7 +16,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <div class="navbar-collapse collapse d-sm-inline-flex">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
@@ -25,85 +25,86 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Products/Products">Products</a>
                         </li>
                     </ul>
-                </div>
 
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    <div class="nav-item .align-self-end">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Cart/BrowseCart"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</a>
-                            </li>
-                            <li>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Login/UserLogin"><span class="glyphicon glyphicon-user"></span>Login</a>
-                            </li>
-                        </ul>
 
-                    </div>
-                }
-                else
-                {
-                    <div class="nav-item .align-self-end">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Cart/BrowseCart"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</a>
-                            </li>
-                            @if (User.HasClaim("UserType", "User"))
-                            {
-                                <li>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/UsersPanel/Index">User's panel</a>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <div class="nav-item .align-self-end">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Cart/BrowseCart"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</a>
                                 </li>
-                            }
-                            @if (User.HasClaim("UserType", "Seller"))
-                            {
                                 <li>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/SellersPanel/Index">Seller's panel</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Login/UserLogin"><span class="glyphicon glyphicon-user"></span>Login</a>
                                 </li>
-                            }
-                            @if (User.HasClaim("UserType", "Admin"))
-                            {
+                            </ul>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="nav-item .align-self-end">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Cart/BrowseCart"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</a>
+                                </li>
+                                @if (User.HasClaim("UserType", "User"))
+                                {
+                                    <li>
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/UsersPanel/Index">User's panel</a>
+                                    </li>
+                                }
+                                @if (User.HasClaim("UserType", "Seller"))
+                                {
+                                    <li>
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/SellersPanel/Index">Seller's panel</a>
+                                    </li>
+                                }
+                                @if (User.HasClaim("UserType", "Admin"))
+                                {
+                                    <li>
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/AdminsPanel/Index">Admin's panel</a>
+                                    </li>
+                                }
                                 <li>
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/AdminsPanel/Index">Admin's panel</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Login/UserLogout"><span class="glyphicon glyphicon-user"></span>Logout</a>
                                 </li>
-                            }
-                            <li>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Login/UserLogout"><span class="glyphicon glyphicon-user"></span>Logout</a>
-                            </li>
 
-                        </ul>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item dropdown">
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarResponsive">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item dropdown">
 
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    MENU
-                                </a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        MENU
+                                    </a>
 
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    @if (User.HasClaim("UserType", "User") || User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
-                                    {
-                                        <a class="dropdown-item" href="~/Orders">Manage Orders</a>
-                                        @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        @if (User.HasClaim("UserType", "User") || User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
                                         {
-                                            <a class="dropdown-item" href="~/Product_Categories">Manage Categories</a>
-                                            <a class="dropdown-item" href="~/Payments">Manage Payments</a>
-                                            @if (User.HasClaim("UserType", "Admin"))
+                                            <a class="dropdown-item" href="~/Orders">Manage Orders</a>
+                                            @if (User.HasClaim("UserType", "Seller") || User.HasClaim("UserType", "Admin"))
                                             {
-                                                <a class="dropdown-item" href="~/Adresses">Manage Addresses</a>
-                                                <a class="dropdown-item" href="~/Customers">Manage Customers</a>
-                                                <a class="dropdown-item" href="~/Delivery_Services">Manage Deliveries</a>
-                                                <a class="dropdown-item" href="~/Users">Manage Users</a>
-                                                <a class="dropdown-item" href="~/Customer_Order(s)">Customer < - > Orders</a>
-                                                <a class="dropdown-item" href="~/Product_Order(s)">Product < - > Orders</a>
+                                                <a class="dropdown-item" href="~/Product_Categories">Manage Categories</a>
+                                                <a class="dropdown-item" href="~/Payments">Manage Payments</a>
+                                                @if (User.HasClaim("UserType", "Admin"))
+                                                {
+                                                    <a class="dropdown-item" href="~/Adresses">Manage Addresses</a>
+                                                    <a class="dropdown-item" href="~/Customers">Manage Customers</a>
+                                                    <a class="dropdown-item" href="~/Delivery_Services">Manage Deliveries</a>
+                                                    <a class="dropdown-item" href="~/Users">Manage Users</a>
+                                                    <a class="dropdown-item" href="~/Customer_Order(s)">Customer < - > Orders</a>
+                                                    <a class="dropdown-item" href="~/Product_Order(s)">Product < - > Orders</a>
+                                                }
                                             }
                                         }
-                                    }
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                }
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                </div>
             </div>
         </nav>
     </header>
