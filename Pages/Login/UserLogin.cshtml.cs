@@ -31,6 +31,7 @@ namespace ZTPSBD.Pages.Login
         {
             var users = _context.User.ToList();
             User us = users.Find(u => u.login.Equals(user.login));
+            if(us == null) { return false; }
 
             user.User_Type = us.User_Type;
             String Password = us.password;
